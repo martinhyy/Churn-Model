@@ -24,9 +24,10 @@ widgets: [shiny, interactive]
 
 <style>
 pre code, pre, code {
-
+  white-space: pre !important;
   overflow-x: scroll !important;
-
+  word-break: keep-all !important;
+  word-wrap: initial !important;
 }
 
 aside.gdbar img{
@@ -88,16 +89,19 @@ code.vhdl{
 
 ## The purpose of Churner Prediction
 <br>
-> - # Find people who are likely to churn
+> - # Find people who are likely to churn.
 
 
-> - # Try to find a way to interact with them and keep them on board
+> - # Try to find a way to interact with them and keep them on board.
+
+> - # Improve our retention rate.
 
 ---
 
 ## The process of Churn Prediction
 <br>
 > - # Choose historical data
+
 > - # Build model based on historical data
      - Significant variables and their weight (coefficient) can be picked out.
     
@@ -144,10 +148,10 @@ code.vhdl{
 <br>
 # Choose all sign ups from the 2015-06-01 to 2015-05-31.
 
-- # Choose all the variables we would like to look at.
+- Choose all the variables we would like to look at.
 
-```{r warning=FALSE, comment=NA, message=FALSE, tidy=TRUE, echo=FALSE, eval=TRUE, results='hide'}
-options(width = 100)
+```{r warning=FALSE, comment=NA, message=FALSE, tidy=TRUE, echo=FALSE, eval=TRUE, results='markup'}
+options(width=300)
 df.raw <- read.csv("F:\\Work\\Greenpeace\\Churn-Model\\Data\\Churn 2016-16-11 by Sign ups.csv",
                    header = T,
                    stringsAsFactors = F)
