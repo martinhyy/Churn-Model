@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Greenpeace Insight Skillshare</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Greenpeace Insight Skillshare">
+  <meta name="author" content="Martin Hou">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="libraries/widgets/interactive/css/aceeditor.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="assets/img/sb7ixc5z.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Greenpeace Insight Skillshare</h1>
+    <h2>R Predictive Modelling</h2>
+    <p>Martin Hou<br/>Data Specialist</p>
+  </hgroup>
+  <article></article>  
+  <footer class = 'license'>
+    <a href='http://creativecommons.org/licenses/by-nc-sa/3.0/'>
+    <img width = '80px' src = 'http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png'>
+    </a>
+  </footer>
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <article data-timings="">
+    <style>
+pre code, pre, code {
+
+  overflow-x: scroll !important;
+
+}
+
+aside.gdbar img{
+  
+  width: 80px;
+  height: 80px;
+
+
+}
+
+div.centered {
+
+  text-align: left;
+
+
+}
+
+/*
+code.coffeescript {
+
+  font-size: 5px;
+
+}
+*/
+
+code.r{ /* Code block */
+  font-size: 15px;
+}
+
+code.vhdl{
+
+  font-size: 15px;
+
+}
+</style>
+
+<h2>Churn Prediction Brief</h2>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+ <center><img src="assets/img/churn_small.jpg" width="55%" height="55%" align="right"></center></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>What is Churn Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<ul class = "build incremental">
+<li><h1>Survival Analysis</h1>
+
+<ul>
+<li>First used in clinical trials and the event of interest was dead or alive.</li>
+</ul></li>
+<li><h1>Now it is widely used to predict the probability of occurrence of an event.</h1>
+
+<ul>
+<li>In a dataset<br>
+
+<ul>
+<li>1: an event occurred</li>
+<li>0: an event didn&#39;t occur</li>
+</ul></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>The purpose of Churner Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<ul class = "build incremental">
+<li><h1>Find people who are likely to churn</h1></li>
+<li><h1>Try to find a way to interact with them and keep them on board</h1></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>The process of Churn Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<ul class = "build incremental">
+<li># Choose historical data</li>
+<li><h1>Build model based on historical data</h1>
+
+<ul>
+<li>Significant variables and their weight (coefficient) can be picked out.</li>
+</ul></li>
+<li><h1>Apply the coefficient (weight) of variables on our current active members and get probability</h1></li>
+<li><h1>Pick up the first 1000 people with lowest probability</h1></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>The variables we would like to look at</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <blockquote>
+<p>Categorical Data  </p>
+</blockquote>
+
+<ul>
+<li>Membership Status (1, 0)</li>
+<li>Gender</li>
+<li>Sign Up source</li>
+<li>Frequency</li>
+<li>Ever Saved?</li>
+<li>Upgrade?</li>
+<li>DD dishonoured?</li>
+<li>ChargeBack</li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <blockquote>
+<p>Numeric Data  </p>
+</blockquote>
+
+<ul>
+<li>Income</li>
+<li>Recurring gift amount</li>
+<li>Recurring first gift amount</li>
+<li>Recurring last gift amount</li>
+<li>Total gift amount</li>
+<li>Total number of gifts</li>
+<li>Age</li>
+<li>Duration (Since the most recent sign up date)</li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Model Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<h1>Choose all sign ups from the 2015-06-01 to 2015-05-31.</h1>
+
+<ul>
+<li># Choose all the variables we would like to look at.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Model Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<h1>Changing character/text variables into factors</h1>
+
+<ul class = "build incremental">
+<li><h1>Values in <code>Current_Status</code>, <code>Gender</code>, <code>Assigned_Fundraiser</code> and all other categorical variables should be changed into numbers</h1>
+
+<ul>
+<li><code>Active</code>, <code>Terminated</code> will become 1, 0</li>
+<li><code>Female</code>, <code>Male</code>, <code>Unknown</code> will become 1, 2, 3</li>
+<li><code>Telefundraiser</code>, <code>Canvasser</code>, <code>Frontliner</code>, <code>WEB</code>, <code>Saver</code> will become 1, 2, 3, 4, 5
+<br></li>
+</ul></li>
+<li><h1>The numbers here are not really numeric. It only tells the programme which is first category, second category and etc.</h1></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Model Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<h1>Variable selection</h1>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Model Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<h1>Logistic regression is used. It deals with scenarios with 2 outcomes.</h1>
+
+<p><br>
+Logistic regression is part of <font color="red">G</font>eneralized <font color="red">L</font>inear <font color="red">M</font>odel (<code>GLM</code>) family</p>
+
+<p>The syntax of a <code>logistic</code> regression will be like the script below</p>
+
+<pre><code class="r">my_model &lt;- glm(Status.Indicator ~ Age + Gender + Income + Assigned_Fundraier + ..., 
+                data = df,
+                family = binomial(logit))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Model Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Logistic regression gives us the coefficients of all variables that are included in the model.</li>
+</ul>
+
+<div style='float:left;width:48%;' class='centered'>
+  <pre><code class="r">my_model &lt;- glm(Status.Indicator ~ Age 
+                 + Gender 
+                 + Income
+                 + Assigned_Fundraiser 
+                 + Sign_Up_Amount 
+                 + Frequency 
+                 + First_Gift_Amount 
+                 + Last_Gift_Amount 
+                 #+ Saved 
+                 #+ Upgrade 
+                 + Total_Number_Of_Gifts
+                 + Total_Gift_Amount
+                 + DDD 
+                 + CCC 
+                 + Times 
+                 #+ DDDown
+                 , 
+                 data = df,
+                 family = binomial(logit)
+                )
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p>Call:
+glm(formula = Status.Indicator ~ Age + Gender + Income + Assigned_Fundraiser + 
+    Sign_Up_Amount + Frequency + First_Gift_Amount + Last_Gift_Amount + 
+    Total_Number_Of_Gifts + Total_Gift_Amount + DDD + CCC + Times, 
+    family = binomial(logit), data = df)</p>
+
+<p>Deviance Residuals: 
+    Min       1Q   Median       3Q      Max<br>
+-8.4904  -0.8957   0.2722   0.8943   3.4448  </p>
+
+<p>Coefficients:
+                                    Estimate Std. Error z value Pr(&gt;|z|)
+(Intercept)                        1.055e+01  1.067e+00   9.882  &lt; 2e-16
+Age                                3.865e-03  1.225e-03   3.156 0.001600
+GenderMale                         1.349e-01  5.048e-02   2.672 0.007535
+GenderUnknown                      9.518e-02  6.871e-02   1.385 0.165986
+Income                            -2.800e-06  8.823e-07  -3.174 0.001506
+Assigned_FundraiserCanvasser      -9.462e-01  8.607e-02 -10.994  &lt; 2e-16
+Assigned_FundraiserFrontliner     -1.526e+00  2.094e-01  -7.287 3.18e-13
+Assigned_FundraiserSaver          -8.310e-01  1.055e-01  -7.878 3.33e-15
+Assigned_FundraiserTelefundraiser -3.263e-01  8.924e-02  -3.656 0.000256
+Assigned_FundraiserWEB             1.947e-01  2.129e-01   0.915 0.360415
+Sign_Up_Amount                    -2.804e-02  2.277e-03 -12.314  &lt; 2e-16
+FrequencyMONTHLY GIVING           -8.854e+00  1.022e+00  -8.663  &lt; 2e-16
+First_Gift_Amount                  3.618e-02  3.601e-03  10.047  &lt; 2e-16
+Last_Gift_Amount                  -4.645e-02  3.783e-03 -12.279  &lt; 2e-16
+Total_Number_Of_Gifts             -1.332e-02  5.724e-03  -2.328 0.019910
+Total_Gift_Amount                  6.330e-03  2.881e-04  21.973  &lt; 2e-16
+DDD1                              -8.302e-01  9.746e-02  -8.519  &lt; 2e-16
+CCC1                               1.570e-01  8.997e-02   1.745 0.080981
+Times                             -9.764e-01  8.628e-02 -11.316  &lt; 2e-16</p>
+
+<p>(Intercept)                       ***
+Age                               ** 
+GenderMale                        ** 
+GenderUnknown<br>
+Income                            ** 
+Assigned_FundraiserCanvasser      ***
+Assigned_FundraiserFrontliner     ***
+Assigned_FundraiserSaver          ***
+Assigned_FundraiserTelefundraiser ***
+Assigned_FundraiserWEB<br>
+Sign_Up_Amount                    ***
+FrequencyMONTHLY GIVING           ***
+First_Gift_Amount                 ***
+Last_Gift_Amount                  ***
+Total_Number_Of_Gifts             *<br>
+Total_Gift_Amount                 ***
+DDD1                              ***
+CCC1                              .  </p>
+
+<h2>Times                             ***</h2>
+
+<p>Signif. codes:  0 &#39;<em>**&#39; 0.001 &#39;</em><em>&#39; 0.01 &#39;</em>&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</p>
+
+<p>(Dispersion parameter for binomial family taken to be 1)</p>
+
+<pre><code>Null deviance: 13916  on 10071  degrees of freedom
+</code></pre>
+
+<p>Residual deviance: 11248  on 10053  degrees of freedom
+AIC: 11286</p>
+
+<p>Number of Fisher Scoring iterations: 7</p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>How to use the output of the model</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<ul>
+<li><h1>On the paper</h1></li>
+<li><h1>Using R <code>predict()</code> function</h1></li>
+</ul>
+
+<pre><code class="r">prob &lt;- predict(my_model, df, type = &quot;response&quot;)
+</code></pre>
+
+<ul>
+<li><h1>Data set <code>df</code> should contain the exact columns used in the model</h1></li>
+<li><h1>Please note:</h1>
+
+<ul class = "build incremental">
+<li>ahaah</li>
+<li>ahahh</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>How do we target people</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<ul>
+<li><h1>Apply the coefficients on current active members we can produce the probability of a person stays with us in the future.</h1></li>
+<li><h1>We pick out people with low probability.</h1></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>Accuracy of Current Model</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<ul>
+<li># Currently we can pick out 16.7% of our monthly cancellations</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Questions?</h2>
+  </hgroup>
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='NA'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='What is Churn Prediction'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='The purpose of Churner Prediction'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='The process of Churn Prediction'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='The variables we would like to look at'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Model Prediction'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Model Prediction'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Model Prediction'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Model Prediction'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Model Prediction'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='How to use the output of the model'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='How do we target people'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='Accuracy of Current Model'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Questions?'>
+         14
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  <script src="libraries/widgets/interactive/js/ace/js/ace.js"></script>
+<script src="libraries/widgets/interactive/js/opencpu-0.5.js"></script>
+<script src="libraries/widgets/interactive/js/interactive.js"></script>
+
+  <script src="shared/shiny.js" type="text/javascript"></script>
+  <script src="shared/slider/js/jquery.slider.min.js"></script>
+  <script src="shared/bootstrap/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="shared/slider/css/jquery.slider.min.css"></link>
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
