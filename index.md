@@ -1,7 +1,7 @@
 ---
 title: "Greenpeace Insight Skillshare"
 author: "Martin Hou"
-date: '21 November, 2016'
+date: '22 November, 2016'
 output:
   ioslides_presentation:
     <!--css: styles.css -->
@@ -62,6 +62,12 @@ code.vhdl{
   font-size: 15px;
 
 }
+
+pre code.1c {
+  font-size: 50%;
+
+}
+
 </style>
 
 ## Churn Prediction Brief 
@@ -207,7 +213,7 @@ Total_Gift_Amount       0.09  0.09           0.28              0.27             
 
 ## Model Prediction
 
-- # correlation matrix tells us some of the variable are highly correlated.
+- # Correlation matrix tells us some of the variable are highly correlated.
 
 - # This means those variables can't be used in the model at the same time.
 
@@ -268,69 +274,34 @@ my_model <- glm(Status.Indicator ~ Age
 
 
 ```
-
-Call:
-glm(formula = Status.Indicator ~ Age + Gender + Income + Assigned_Fundraiser + 
-    Sign_Up_Amount + Frequency + First_Gift_Amount + Last_Gift_Amount + 
-    Total_Number_Of_Gifts + Total_Gift_Amount + DDD + CCC + Times, 
-    family = binomial(logit), data = df)
-
-Deviance Residuals: 
-    Min       1Q   Median       3Q      Max  
--8.4904  -0.8957   0.2722   0.8943   3.4448  
-
-Coefficients:
-                                    Estimate Std. Error z value Pr(>|z|)
-(Intercept)                        1.055e+01  1.067e+00   9.882  < 2e-16
-Age                                3.865e-03  1.225e-03   3.156 0.001600
-GenderMale                         1.349e-01  5.048e-02   2.672 0.007535
-GenderUnknown                      9.518e-02  6.871e-02   1.385 0.165986
-Income                            -2.800e-06  8.823e-07  -3.174 0.001506
-Assigned_FundraiserCanvasser      -9.462e-01  8.607e-02 -10.994  < 2e-16
-Assigned_FundraiserFrontliner     -1.526e+00  2.094e-01  -7.287 3.18e-13
-Assigned_FundraiserSaver          -8.310e-01  1.055e-01  -7.878 3.33e-15
-Assigned_FundraiserTelefundraiser -3.263e-01  8.924e-02  -3.656 0.000256
-Assigned_FundraiserWEB             1.947e-01  2.129e-01   0.915 0.360415
-Sign_Up_Amount                    -2.804e-02  2.277e-03 -12.314  < 2e-16
-FrequencyMONTHLY GIVING           -8.854e+00  1.022e+00  -8.663  < 2e-16
-First_Gift_Amount                  3.618e-02  3.601e-03  10.047  < 2e-16
-Last_Gift_Amount                  -4.645e-02  3.783e-03 -12.279  < 2e-16
-Total_Number_Of_Gifts             -1.332e-02  5.724e-03  -2.328 0.019910
-Total_Gift_Amount                  6.330e-03  2.881e-04  21.973  < 2e-16
-DDD1                              -8.302e-01  9.746e-02  -8.519  < 2e-16
-CCC1                               1.570e-01  8.997e-02   1.745 0.080981
-Times                             -9.764e-01  8.628e-02 -11.316  < 2e-16
-                                     
-(Intercept)                       ***
-Age                               ** 
-GenderMale                        ** 
-GenderUnknown                        
-Income                            ** 
-Assigned_FundraiserCanvasser      ***
-Assigned_FundraiserFrontliner     ***
-Assigned_FundraiserSaver          ***
-Assigned_FundraiserTelefundraiser ***
-Assigned_FundraiserWEB               
-Sign_Up_Amount                    ***
-FrequencyMONTHLY GIVING           ***
-First_Gift_Amount                 ***
-Last_Gift_Amount                  ***
-Total_Number_Of_Gifts             *  
-Total_Gift_Amount                 ***
-DDD1                              ***
-CCC1                              .  
-Times                             ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for binomial family taken to be 1)
-
-    Null deviance: 13916  on 10071  degrees of freedom
-Residual deviance: 11248  on 10053  degrees of freedom
-AIC: 11286
-
-Number of Fisher Scoring iterations: 7
+                                       Estimate   Std. Error     z value      Pr(>|z|)
+(Intercept)                        1.054763e+01 1.067317e+00   9.8823782  4.964059e-23
+Age                                3.864882e-03 1.224649e-03   3.1559102  1.599981e-03
+GenderMale                         1.349053e-01 5.048464e-02   2.6722046  7.535469e-03
+GenderUnknown                      9.517646e-02 6.870871e-02   1.3852167  1.659862e-01
+Income                            -2.799946e-06 8.822575e-07  -3.1736157  1.505529e-03
+Assigned_FundraiserCanvasser      -9.462476e-01 8.607137e-02 -10.9937562  4.095204e-28
+Assigned_FundraiserFrontliner     -1.525945e+00 2.094175e-01  -7.2866161  3.178370e-13
+Assigned_FundraiserSaver          -8.310060e-01 1.054864e-01  -7.8778504  3.330612e-15
+Assigned_FundraiserTelefundraiser -3.263028e-01 8.924056e-02  -3.6564409  2.557413e-04
+Assigned_FundraiserWEB             1.946993e-01 2.128852e-01   0.9145739  3.604154e-01
+Sign_Up_Amount                    -2.804024e-02 2.277135e-03 -12.3138275  7.631628e-35
+FrequencyMONTHLY GIVING           -8.854031e+00 1.022046e+00  -8.6630496  4.593084e-18
+First_Gift_Amount                  3.618227e-02 3.601388e-03  10.0467554  9.494197e-24
+Last_Gift_Amount                  -4.645492e-02 3.783244e-03 -12.2791233  1.172620e-34
+Total_Number_Of_Gifts             -1.332466e-02 5.723572e-03  -2.3280330  1.991035e-02
+Total_Gift_Amount                  6.330043e-03 2.880891e-04  21.9725150 5.276450e-107
+DDD1                              -8.301905e-01 9.745672e-02  -8.5185558  1.615551e-17
+CCC1                               1.570042e-01 8.997274e-02   1.7450199  8.098141e-02
+Times                             -9.763935e-01 8.628068e-02 -11.3164786  1.087532e-29
 ```
+
+---
+
+## Model Prediction
+
+- # Variable selection
+
 
 ---
 
