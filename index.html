@@ -289,17 +289,18 @@ pre code.1c {
 <pre><code class="r">options(width=300)
 round(cor(df[,c(&quot;Income&quot;, &quot;Age&quot;, &quot;Sign_Up_Amount&quot;, 
                 &quot;First_Gift_Amount&quot;, &quot;Last_Gift_Amount&quot;, 
-                &quot;Total_Number_Of_Gifts&quot;, &quot;Total_Gift_Amount&quot;)]),2)
+                &quot;Total_Number_Of_Gifts&quot;, &quot;Total_Gift_Amount&quot;, &quot;Times&quot;)]),2)
 </code></pre>
 
-<pre><code>                      Income   Age Sign_Up_Amount First_Gift_Amount Last_Gift_Amount Total_Number_Of_Gifts Total_Gift_Amount
-Income                  1.00 -0.01           0.03              0.07             0.06                  0.06              0.09
-Age                    -0.01  1.00           0.02             -0.01             0.01                  0.09              0.09
-Sign_Up_Amount          0.03  0.02           1.00              0.55             0.70                  0.03              0.28
-First_Gift_Amount       0.07 -0.01           0.55              1.00             0.88                  0.11              0.27
-Last_Gift_Amount        0.06  0.01           0.70              0.88             1.00                  0.11              0.36
-Total_Number_Of_Gifts   0.06  0.09           0.03              0.11             0.11                  1.00              0.79
-Total_Gift_Amount       0.09  0.09           0.28              0.27             0.36                  0.79              1.00
+<pre><code>                      Income   Age Sign_Up_Amount First_Gift_Amount Last_Gift_Amount Total_Number_Of_Gifts Total_Gift_Amount Times
+Income                  1.00 -0.01           0.03              0.07             0.06                  0.06              0.09 -0.01
+Age                    -0.01  1.00           0.02             -0.01             0.01                  0.09              0.09  0.11
+Sign_Up_Amount          0.03  0.02           1.00              0.55             0.70                  0.03              0.28  0.07
+First_Gift_Amount       0.07 -0.01           0.55              1.00             0.88                  0.11              0.27  0.03
+Last_Gift_Amount        0.06  0.01           0.70              0.88             1.00                  0.11              0.36  0.05
+Total_Number_Of_Gifts   0.06  0.09           0.03              0.11             0.11                  1.00              0.79  0.53
+Total_Gift_Amount       0.09  0.09           0.28              0.27             0.36                  0.79              1.00  0.45
+Times                  -0.01  0.11           0.07              0.03             0.05                  0.53              0.45  1.00
 </code></pre>
 
   </article>
@@ -317,25 +318,28 @@ Total_Gift_Amount       0.09  0.09           0.28              0.27             
 <li><h1>Which variable should be used?</h1></li>
 </ul>
 
-<h2>Model Prediction</h2>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
 
-<ul>
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Model Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
 <li><h1>A simple approach to identify collinearity among explanatory variables is the use of variance inflation factors (<code>VIF</code>)</h1></li>
 <li><h1>The higher the value, the higher the collinearity</h1></li>
 </ul>
 
 <pre><code class="r">vif &lt;- diag(solve(cor(df[,c(&quot;Income&quot;, &quot;Age&quot;, &quot;Sign_Up_Amount&quot;, 
                 &quot;First_Gift_Amount&quot;, &quot;Last_Gift_Amount&quot;, 
-                &quot;Total_Number_Of_Gifts&quot;, &quot;Total_Gift_Amount&quot;)])))
+                &quot;Total_Number_Of_Gifts&quot;, &quot;Total_Gift_Amount&quot;, &quot;Times&quot;)])))
 vif
 </code></pre>
 
-<pre><code>               Income                   Age        Sign_Up_Amount 
-             1.011049              1.011650              2.077666 
-    First_Gift_Amount      Last_Gift_Amount Total_Number_Of_Gifts 
-             4.798177              6.812227              3.065939 
-    Total_Gift_Amount 
-             3.497294 
+<pre><code>               Income                   Age        Sign_Up_Amount     First_Gift_Amount      Last_Gift_Amount Total_Number_Of_Gifts     Total_Gift_Amount                 Times 
+             1.013195              1.015675              2.091509              4.798189              6.827333              3.353585              3.513616              1.416261 
 </code></pre>
 
 <ul>
@@ -346,7 +350,7 @@ vif
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>Model Prediction</h2>
   </hgroup>
@@ -369,7 +373,7 @@ Logistic regression is part of <font color="red">G</font>eneralized <font color=
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-12" style="background:;">
   <hgroup>
     <h2>Model Prediction</h2>
   </hgroup>
@@ -427,7 +431,7 @@ Times                             -9.527222e-01 8.066817e-02 -11.8103858  3.4497
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-12" style="background:;">
+<slide class="" id="slide-13" style="background:;">
   <hgroup>
     <h2>How to use the output of the model</h2>
   </hgroup>
@@ -456,7 +460,7 @@ Times                             -9.527222e-01 8.066817e-02 -11.8103858  3.4497
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-13" style="background:;">
+<slide class="" id="slide-14" style="background:;">
   <hgroup>
     <h2>How do we target people</h2>
   </hgroup>
@@ -472,7 +476,7 @@ Times                             -9.527222e-01 8.066817e-02 -11.8103858  3.4497
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-14" style="background:;">
+<slide class="" id="slide-15" style="background:;">
   <hgroup>
     <h2>Accuracy of Current Model</h2>
   </hgroup>
@@ -487,7 +491,7 @@ Times                             -9.527222e-01 8.066817e-02 -11.8103858  3.4497
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-15" style="background:;">
+<slide class="" id="slide-16" style="background:;">
   <hgroup>
     <h2>Questions?</h2>
   </hgroup>
@@ -569,26 +573,32 @@ Times                             -9.527222e-01 8.066817e-02 -11.8103858  3.4497
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=12 title='How to use the output of the model'>
+        data-slide=12 title='Model Prediction'>
          12
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=13 title='How do we target people'>
+        data-slide=13 title='How to use the output of the model'>
          13
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=14 title='Accuracy of Current Model'>
+        data-slide=14 title='How do we target people'>
          14
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=15 title='Questions?'>
+        data-slide=15 title='Accuracy of Current Model'>
          15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Questions?'>
+         16
       </a>
     </li>
   </ul>

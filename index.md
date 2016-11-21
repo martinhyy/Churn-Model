@@ -195,18 +195,19 @@ pre code.1c {
 options(width=300)
 round(cor(df[,c("Income", "Age", "Sign_Up_Amount", 
                 "First_Gift_Amount", "Last_Gift_Amount", 
-                "Total_Number_Of_Gifts", "Total_Gift_Amount")]),2)
+                "Total_Number_Of_Gifts", "Total_Gift_Amount", "Times")]),2)
 ```
 
 ```
-                      Income   Age Sign_Up_Amount First_Gift_Amount Last_Gift_Amount Total_Number_Of_Gifts Total_Gift_Amount
-Income                  1.00 -0.01           0.03              0.07             0.06                  0.06              0.09
-Age                    -0.01  1.00           0.02             -0.01             0.01                  0.09              0.09
-Sign_Up_Amount          0.03  0.02           1.00              0.55             0.70                  0.03              0.28
-First_Gift_Amount       0.07 -0.01           0.55              1.00             0.88                  0.11              0.27
-Last_Gift_Amount        0.06  0.01           0.70              0.88             1.00                  0.11              0.36
-Total_Number_Of_Gifts   0.06  0.09           0.03              0.11             0.11                  1.00              0.79
-Total_Gift_Amount       0.09  0.09           0.28              0.27             0.36                  0.79              1.00
+                      Income   Age Sign_Up_Amount First_Gift_Amount Last_Gift_Amount Total_Number_Of_Gifts Total_Gift_Amount Times
+Income                  1.00 -0.01           0.03              0.07             0.06                  0.06              0.09 -0.01
+Age                    -0.01  1.00           0.02             -0.01             0.01                  0.09              0.09  0.11
+Sign_Up_Amount          0.03  0.02           1.00              0.55             0.70                  0.03              0.28  0.07
+First_Gift_Amount       0.07 -0.01           0.55              1.00             0.88                  0.11              0.27  0.03
+Last_Gift_Amount        0.06  0.01           0.70              0.88             1.00                  0.11              0.36  0.05
+Total_Number_Of_Gifts   0.06  0.09           0.03              0.11             0.11                  1.00              0.79  0.53
+Total_Gift_Amount       0.09  0.09           0.28              0.27             0.36                  0.79              1.00  0.45
+Times                  -0.01  0.11           0.07              0.03             0.05                  0.53              0.45  1.00
 ```
 
 ---
@@ -219,6 +220,8 @@ Total_Gift_Amount       0.09  0.09           0.28              0.27             
 
 - # Which variable should be used?
 
+---
+
 ## Model Prediction
 
 - # A simple approach to identify collinearity among explanatory variables is the use of variance inflation factors (`VIF`)
@@ -230,17 +233,13 @@ Total_Gift_Amount       0.09  0.09           0.28              0.27             
 ```r
 vif <- diag(solve(cor(df[,c("Income", "Age", "Sign_Up_Amount", 
                 "First_Gift_Amount", "Last_Gift_Amount", 
-                "Total_Number_Of_Gifts", "Total_Gift_Amount")])))
+                "Total_Number_Of_Gifts", "Total_Gift_Amount", "Times")])))
 vif
 ```
 
 ```
-               Income                   Age        Sign_Up_Amount 
-             1.011049              1.011650              2.077666 
-    First_Gift_Amount      Last_Gift_Amount Total_Number_Of_Gifts 
-             4.798177              6.812227              3.065939 
-    Total_Gift_Amount 
-             3.497294 
+               Income                   Age        Sign_Up_Amount     First_Gift_Amount      Last_Gift_Amount Total_Number_Of_Gifts     Total_Gift_Amount                 Times 
+             1.013195              1.015675              2.091509              4.798189              6.827333              3.353585              3.513616              1.416261 
 ```
 
 - # From the result we can tell we should firstly remove `Last_Gift_Amount` first
