@@ -275,15 +275,47 @@ code.vhdl{
     <h2>Model Prediction</h2>
   </hgroup>
   <article data-timings="">
-    <p><br></p>
+    <ul>
+<li><h1>Check correlation between variables</h1></li>
+<li><h1>All numeric variables are checked here</h1></li>
+</ul>
 
-<h1>Variable selection</h1>
+<pre><code class="r">options(width=300)
+round(cor(df[,c(&quot;Income&quot;, &quot;Age&quot;, &quot;Sign_Up_Amount&quot;, 
+                &quot;First_Gift_Amount&quot;, &quot;Last_Gift_Amount&quot;, 
+                &quot;Total_Number_Of_Gifts&quot;, &quot;Total_Gift_Amount&quot;)]),2)
+</code></pre>
+
+<pre><code>                      Income   Age Sign_Up_Amount First_Gift_Amount Last_Gift_Amount Total_Number_Of_Gifts Total_Gift_Amount
+Income                  1.00 -0.01           0.03              0.07             0.06                  0.06              0.09
+Age                    -0.01  1.00           0.02             -0.01             0.01                  0.09              0.09
+Sign_Up_Amount          0.03  0.02           1.00              0.55             0.70                  0.03              0.28
+First_Gift_Amount       0.07 -0.01           0.55              1.00             0.88                  0.11              0.27
+Last_Gift_Amount        0.06  0.01           0.70              0.88             1.00                  0.11              0.36
+Total_Number_Of_Gifts   0.06  0.09           0.03              0.11             0.11                  1.00              0.79
+Total_Gift_Amount       0.09  0.09           0.28              0.27             0.36                  0.79              1.00
+</code></pre>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
 <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Model Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><h1>correlation matrix tells us some of the variable are highly correlated.</h1></li>
+<li><h1>This means those variables can&#39;t be used in the model at the same time.</h1></li>
+<li><h1>Which variable should be used?</h1></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>Model Prediction</h2>
   </hgroup>
@@ -306,7 +338,7 @@ Logistic regression is part of <font color="red">G</font>eneralized <font color=
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-10" style="background:;">
+<slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>Model Prediction</h2>
   </hgroup>
@@ -340,57 +372,76 @@ Logistic regression is part of <font color="red">G</font>eneralized <font color=
 
 </div>
 <div style='float:right;width:48%;'>
-  <p>Call:
+  <pre><code>
+Call:
 glm(formula = Status.Indicator ~ Age + Gender + Income + Assigned_Fundraiser + 
     Sign_Up_Amount + Frequency + First_Gift_Amount + Last_Gift_Amount + 
     Total_Number_Of_Gifts + Total_Gift_Amount + DDD + CCC + Times, 
-    family = binomial(logit), data = df)</p>
+    family = binomial(logit), data = df)
 
-<p>Deviance Residuals: 
-    Min       1Q   Median       3Q      Max<br>
--8.4904  -0.8957   0.2722   0.8943   3.4448  </p>
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-8.4904  -0.8957   0.2722   0.8943   3.4448  
 
-<p>Coefficients:
-                                    Estimate Std. Error z value Pr(&gt;|z|)<br>
-(Intercept)                        1.055e+01  1.067e+00   9.882  &lt; 2e-16 ***
-Age                                3.865e-03  1.225e-03   3.156 0.001600 ** 
-GenderMale                         1.349e-01  5.048e-02   2.672 0.007535 ** 
-GenderUnknown                      9.518e-02  6.871e-02   1.385 0.165986<br>
-Income                            -2.800e-06  8.823e-07  -3.174 0.001506 ** 
-Assigned_FundraiserCanvasser      -9.462e-01  8.607e-02 -10.994  &lt; 2e-16 ***
-Assigned_FundraiserFrontliner     -1.526e+00  2.094e-01  -7.287 3.18e-13 ***
-Assigned_FundraiserSaver          -8.310e-01  1.055e-01  -7.878 3.33e-15 ***
-Assigned_FundraiserTelefundraiser -3.263e-01  8.924e-02  -3.656 0.000256 ***
-Assigned_FundraiserWEB             1.947e-01  2.129e-01   0.915 0.360415<br>
-Sign_Up_Amount                    -2.804e-02  2.277e-03 -12.314  &lt; 2e-16 ***
-FrequencyMONTHLY GIVING           -8.854e+00  1.022e+00  -8.663  &lt; 2e-16 ***
-First_Gift_Amount                  3.618e-02  3.601e-03  10.047  &lt; 2e-16 ***
-Last_Gift_Amount                  -4.645e-02  3.783e-03 -12.279  &lt; 2e-16 ***
-Total_Number_Of_Gifts             -1.332e-02  5.724e-03  -2.328 0.019910 *<br>
-Total_Gift_Amount                  6.330e-03  2.881e-04  21.973  &lt; 2e-16 ***
-DDD1                              -8.302e-01  9.746e-02  -8.519  &lt; 2e-16 ***
-CCC1                               1.570e-01  8.997e-02   1.745 0.080981 .  </p>
+Coefficients:
+                                    Estimate Std. Error z value Pr(&gt;|z|)
+(Intercept)                        1.055e+01  1.067e+00   9.882  &lt; 2e-16
+Age                                3.865e-03  1.225e-03   3.156 0.001600
+GenderMale                         1.349e-01  5.048e-02   2.672 0.007535
+GenderUnknown                      9.518e-02  6.871e-02   1.385 0.165986
+Income                            -2.800e-06  8.823e-07  -3.174 0.001506
+Assigned_FundraiserCanvasser      -9.462e-01  8.607e-02 -10.994  &lt; 2e-16
+Assigned_FundraiserFrontliner     -1.526e+00  2.094e-01  -7.287 3.18e-13
+Assigned_FundraiserSaver          -8.310e-01  1.055e-01  -7.878 3.33e-15
+Assigned_FundraiserTelefundraiser -3.263e-01  8.924e-02  -3.656 0.000256
+Assigned_FundraiserWEB             1.947e-01  2.129e-01   0.915 0.360415
+Sign_Up_Amount                    -2.804e-02  2.277e-03 -12.314  &lt; 2e-16
+FrequencyMONTHLY GIVING           -8.854e+00  1.022e+00  -8.663  &lt; 2e-16
+First_Gift_Amount                  3.618e-02  3.601e-03  10.047  &lt; 2e-16
+Last_Gift_Amount                  -4.645e-02  3.783e-03 -12.279  &lt; 2e-16
+Total_Number_Of_Gifts             -1.332e-02  5.724e-03  -2.328 0.019910
+Total_Gift_Amount                  6.330e-03  2.881e-04  21.973  &lt; 2e-16
+DDD1                              -8.302e-01  9.746e-02  -8.519  &lt; 2e-16
+CCC1                               1.570e-01  8.997e-02   1.745 0.080981
+Times                             -9.764e-01  8.628e-02 -11.316  &lt; 2e-16
 
-<h2>Times                             -9.764e-01  8.628e-02 -11.316  &lt; 2e-16 ***</h2>
+(Intercept)                       ***
+Age                               ** 
+GenderMale                        ** 
+GenderUnknown                        
+Income                            ** 
+Assigned_FundraiserCanvasser      ***
+Assigned_FundraiserFrontliner     ***
+Assigned_FundraiserSaver          ***
+Assigned_FundraiserTelefundraiser ***
+Assigned_FundraiserWEB               
+Sign_Up_Amount                    ***
+FrequencyMONTHLY GIVING           ***
+First_Gift_Amount                 ***
+Last_Gift_Amount                  ***
+Total_Number_Of_Gifts             *  
+Total_Gift_Amount                 ***
+DDD1                              ***
+CCC1                              .  
+Times                             ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
-<p>Signif. codes:  0 &#39;<em>**&#39; 0.001 &#39;</em><em>&#39; 0.01 &#39;</em>&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</p>
+(Dispersion parameter for binomial family taken to be 1)
 
-<p>(Dispersion parameter for binomial family taken to be 1)</p>
+    Null deviance: 13916  on 10071  degrees of freedom
+Residual deviance: 11248  on 10053  degrees of freedom
+AIC: 11286
 
-<pre><code>Null deviance: 13916  on 10071  degrees of freedom
+Number of Fisher Scoring iterations: 7
 </code></pre>
-
-<p>Residual deviance: 11248  on 10053  degrees of freedom
-AIC: 11286</p>
-
-<p>Number of Fisher Scoring iterations: 7</p>
 
 </div>
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-11" style="background:;">
+<slide class="" id="slide-12" style="background:;">
   <hgroup>
     <h2>How to use the output of the model</h2>
   </hgroup>
@@ -398,20 +449,20 @@ AIC: 11286</p>
     <p><br></p>
 
 <ul>
-<li><h1>On the paper</h1></li>
+<li></li>
 <li><h1>Using R <code>predict()</code> function</h1></li>
 </ul>
 
 <pre><code class="r">prob &lt;- predict(my_model, df, type = &quot;response&quot;)
 </code></pre>
 
-<ul>
-<li><h1>Data set <code>df</code> should contain the exact columns used in the model</h1></li>
+<ul class = "build incremental">
+<li><h1>Data set <code>df</code> should contain the exact variables used in the model</h1></li>
 <li><h1>Please note:</h1>
 
 <ul class = "build incremental">
-<li>ahaah</li>
-<li>ahahh</li>
+<li>If we want to use <code>predict()</code> to calculate the probability of the response variable for a given dataset, <code>type=&quot;response&quot;</code> should be specified</li>
+<li>Otherwise, the result will be the some other value but still related to probability (log-odds)</li>
 </ul></li>
 </ul>
 
@@ -419,7 +470,7 @@ AIC: 11286</p>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-12" style="background:;">
+<slide class="" id="slide-13" style="background:;">
   <hgroup>
     <h2>How do we target people</h2>
   </hgroup>
@@ -435,7 +486,7 @@ AIC: 11286</p>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-13" style="background:;">
+<slide class="" id="slide-14" style="background:;">
   <hgroup>
     <h2>Accuracy of Current Model</h2>
   </hgroup>
@@ -450,7 +501,7 @@ AIC: 11286</p>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-14" style="background:;">
+<slide class="" id="slide-15" style="background:;">
   <hgroup>
     <h2>Questions?</h2>
   </hgroup>
@@ -526,26 +577,32 @@ AIC: 11286</p>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=11 title='How to use the output of the model'>
+        data-slide=11 title='Model Prediction'>
          11
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=12 title='How do we target people'>
+        data-slide=12 title='How to use the output of the model'>
          12
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=13 title='Accuracy of Current Model'>
+        data-slide=13 title='How do we target people'>
          13
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=14 title='Questions?'>
+        data-slide=14 title='Accuracy of Current Model'>
          14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Questions?'>
+         15
       </a>
     </li>
   </ul>

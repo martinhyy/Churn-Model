@@ -179,8 +179,39 @@ code.vhdl{
 ---
 
 ## Model Prediction
-<br>
-# Variable selection
+
+- # Check correlation between variables 
+
+- # All numeric variables are checked here
+
+
+```r
+options(width=300)
+round(cor(df[,c("Income", "Age", "Sign_Up_Amount", 
+                "First_Gift_Amount", "Last_Gift_Amount", 
+                "Total_Number_Of_Gifts", "Total_Gift_Amount")]),2)
+```
+
+```
+                      Income   Age Sign_Up_Amount First_Gift_Amount Last_Gift_Amount Total_Number_Of_Gifts Total_Gift_Amount
+Income                  1.00 -0.01           0.03              0.07             0.06                  0.06              0.09
+Age                    -0.01  1.00           0.02             -0.01             0.01                  0.09              0.09
+Sign_Up_Amount          0.03  0.02           1.00              0.55             0.70                  0.03              0.28
+First_Gift_Amount       0.07 -0.01           0.55              1.00             0.88                  0.11              0.27
+Last_Gift_Amount        0.06  0.01           0.70              0.88             1.00                  0.11              0.36
+Total_Number_Of_Gifts   0.06  0.09           0.03              0.11             0.11                  1.00              0.79
+Total_Gift_Amount       0.09  0.09           0.28              0.27             0.36                  0.79              1.00
+```
+
+---
+
+## Model Prediction
+
+- # correlation matrix tells us some of the variable are highly correlated.
+
+- # This means those variables can't be used in the model at the same time.
+
+- # Which variable should be used?
 
 --- 
 
@@ -236,6 +267,8 @@ my_model <- glm(Status.Indicator ~ Age
 *** =right
 
 
+```
+
 Call:
 glm(formula = Status.Indicator ~ Age + Gender + Income + Assigned_Fundraiser + 
     Sign_Up_Amount + Frequency + First_Gift_Amount + Last_Gift_Amount + 
@@ -247,26 +280,46 @@ Deviance Residuals:
 -8.4904  -0.8957   0.2722   0.8943   3.4448  
 
 Coefficients:
-                                    Estimate Std. Error z value Pr(>|z|)    
-(Intercept)                        1.055e+01  1.067e+00   9.882  < 2e-16 ***
-Age                                3.865e-03  1.225e-03   3.156 0.001600 ** 
-GenderMale                         1.349e-01  5.048e-02   2.672 0.007535 ** 
-GenderUnknown                      9.518e-02  6.871e-02   1.385 0.165986    
-Income                            -2.800e-06  8.823e-07  -3.174 0.001506 ** 
-Assigned_FundraiserCanvasser      -9.462e-01  8.607e-02 -10.994  < 2e-16 ***
-Assigned_FundraiserFrontliner     -1.526e+00  2.094e-01  -7.287 3.18e-13 ***
-Assigned_FundraiserSaver          -8.310e-01  1.055e-01  -7.878 3.33e-15 ***
-Assigned_FundraiserTelefundraiser -3.263e-01  8.924e-02  -3.656 0.000256 ***
-Assigned_FundraiserWEB             1.947e-01  2.129e-01   0.915 0.360415    
-Sign_Up_Amount                    -2.804e-02  2.277e-03 -12.314  < 2e-16 ***
-FrequencyMONTHLY GIVING           -8.854e+00  1.022e+00  -8.663  < 2e-16 ***
-First_Gift_Amount                  3.618e-02  3.601e-03  10.047  < 2e-16 ***
-Last_Gift_Amount                  -4.645e-02  3.783e-03 -12.279  < 2e-16 ***
-Total_Number_Of_Gifts             -1.332e-02  5.724e-03  -2.328 0.019910 *  
-Total_Gift_Amount                  6.330e-03  2.881e-04  21.973  < 2e-16 ***
-DDD1                              -8.302e-01  9.746e-02  -8.519  < 2e-16 ***
-CCC1                               1.570e-01  8.997e-02   1.745 0.080981 .  
-Times                             -9.764e-01  8.628e-02 -11.316  < 2e-16 ***
+                                    Estimate Std. Error z value Pr(>|z|)
+(Intercept)                        1.055e+01  1.067e+00   9.882  < 2e-16
+Age                                3.865e-03  1.225e-03   3.156 0.001600
+GenderMale                         1.349e-01  5.048e-02   2.672 0.007535
+GenderUnknown                      9.518e-02  6.871e-02   1.385 0.165986
+Income                            -2.800e-06  8.823e-07  -3.174 0.001506
+Assigned_FundraiserCanvasser      -9.462e-01  8.607e-02 -10.994  < 2e-16
+Assigned_FundraiserFrontliner     -1.526e+00  2.094e-01  -7.287 3.18e-13
+Assigned_FundraiserSaver          -8.310e-01  1.055e-01  -7.878 3.33e-15
+Assigned_FundraiserTelefundraiser -3.263e-01  8.924e-02  -3.656 0.000256
+Assigned_FundraiserWEB             1.947e-01  2.129e-01   0.915 0.360415
+Sign_Up_Amount                    -2.804e-02  2.277e-03 -12.314  < 2e-16
+FrequencyMONTHLY GIVING           -8.854e+00  1.022e+00  -8.663  < 2e-16
+First_Gift_Amount                  3.618e-02  3.601e-03  10.047  < 2e-16
+Last_Gift_Amount                  -4.645e-02  3.783e-03 -12.279  < 2e-16
+Total_Number_Of_Gifts             -1.332e-02  5.724e-03  -2.328 0.019910
+Total_Gift_Amount                  6.330e-03  2.881e-04  21.973  < 2e-16
+DDD1                              -8.302e-01  9.746e-02  -8.519  < 2e-16
+CCC1                               1.570e-01  8.997e-02   1.745 0.080981
+Times                             -9.764e-01  8.628e-02 -11.316  < 2e-16
+                                     
+(Intercept)                       ***
+Age                               ** 
+GenderMale                        ** 
+GenderUnknown                        
+Income                            ** 
+Assigned_FundraiserCanvasser      ***
+Assigned_FundraiserFrontliner     ***
+Assigned_FundraiserSaver          ***
+Assigned_FundraiserTelefundraiser ***
+Assigned_FundraiserWEB               
+Sign_Up_Amount                    ***
+FrequencyMONTHLY GIVING           ***
+First_Gift_Amount                 ***
+Last_Gift_Amount                  ***
+Total_Number_Of_Gifts             *  
+Total_Gift_Amount                 ***
+DDD1                              ***
+CCC1                              .  
+Times                             ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -277,14 +330,13 @@ Residual deviance: 11248  on 10053  degrees of freedom
 AIC: 11286
 
 Number of Fisher Scoring iterations: 7
+```
 
 ---
 
 ## How to use the output of the model
 <br>
-
-- # On the paper
-
+- # 
 
 - # Using R `predict()` function
 
@@ -293,11 +345,11 @@ Number of Fisher Scoring iterations: 7
 prob <- predict(my_model, df, type = "response")
 ```
    
-  - # Data set `df` should contain the exact columns used in the model
+>  - # Data set `df` should contain the exact variables used in the model
 
-  - # Please note:
-       > - ahaah
-       > - ahahh
+>  - # Please note:
+       > - If we want to use `predict()` to calculate the probability of the response variable for a given dataset, `type="response"` should be specified
+       > - Otherwise, the result will be the some other value but still related to probability (log-odds)
 
 ---
 
