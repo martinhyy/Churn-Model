@@ -213,11 +213,37 @@ Total_Gift_Amount       0.09  0.09           0.28              0.27             
 
 ## Model Prediction
 
-- # Correlation matrix tells us some of the variable are highly correlated.
+- # Correlation matrix tells us some of the variable are highly correlated (collinearity ).
 
 - # This means those variables can't be used in the model at the same time.
 
 - # Which variable should be used?
+
+## Model Prediction
+
+- # A simple approach to identify collinearity among explanatory variables is the use of variance inflation factors (`VIF`)
+
+- # The higher the value, the higher the collinearity
+
+
+
+```r
+vif <- diag(solve(cor(df[,c("Income", "Age", "Sign_Up_Amount", 
+                "First_Gift_Amount", "Last_Gift_Amount", 
+                "Total_Number_Of_Gifts", "Total_Gift_Amount")])))
+vif
+```
+
+```
+               Income                   Age        Sign_Up_Amount 
+             1.011049              1.011650              2.077666 
+    First_Gift_Amount      Last_Gift_Amount Total_Number_Of_Gifts 
+             4.798177              6.812227              3.065939 
+    Total_Gift_Amount 
+             3.497294 
+```
+
+- # From the result we can tell we should firstly remove `Last_Gift_Amount` first
 
 --- 
 
@@ -253,11 +279,11 @@ my_model <- glm(Status.Indicator ~ Age
                  + Assigned_Fundraiser 
                  + Sign_Up_Amount 
                  + Frequency 
-                 + First_Gift_Amount 
-                 + Last_Gift_Amount 
+                 #+ First_Gift_Amount 
+                 #+ Last_Gift_Amount 
                  #+ Saved 
                  #+ Upgrade 
-                 + Total_Number_Of_Gifts
+                 #+ Total_Number_Of_Gifts
                  + Total_Gift_Amount
                  + DDD 
                  + CCC 
@@ -275,32 +301,23 @@ my_model <- glm(Status.Indicator ~ Age
 
 ```
                                        Estimate   Std. Error     z value      Pr(>|z|)
-(Intercept)                        1.054763e+01 1.067317e+00   9.8823782  4.964059e-23
-Age                                3.864882e-03 1.224649e-03   3.1559102  1.599981e-03
-GenderMale                         1.349053e-01 5.048464e-02   2.6722046  7.535469e-03
-GenderUnknown                      9.517646e-02 6.870871e-02   1.3852167  1.659862e-01
-Income                            -2.799946e-06 8.822575e-07  -3.1736157  1.505529e-03
-Assigned_FundraiserCanvasser      -9.462476e-01 8.607137e-02 -10.9937562  4.095204e-28
-Assigned_FundraiserFrontliner     -1.525945e+00 2.094175e-01  -7.2866161  3.178370e-13
-Assigned_FundraiserSaver          -8.310060e-01 1.054864e-01  -7.8778504  3.330612e-15
-Assigned_FundraiserTelefundraiser -3.263028e-01 8.924056e-02  -3.6564409  2.557413e-04
-Assigned_FundraiserWEB             1.946993e-01 2.128852e-01   0.9145739  3.604154e-01
-Sign_Up_Amount                    -2.804024e-02 2.277135e-03 -12.3138275  7.631628e-35
-FrequencyMONTHLY GIVING           -8.854031e+00 1.022046e+00  -8.6630496  4.593084e-18
-First_Gift_Amount                  3.618227e-02 3.601388e-03  10.0467554  9.494197e-24
-Last_Gift_Amount                  -4.645492e-02 3.783244e-03 -12.2791233  1.172620e-34
-Total_Number_Of_Gifts             -1.332466e-02 5.723572e-03  -2.3280330  1.991035e-02
-Total_Gift_Amount                  6.330043e-03 2.880891e-04  21.9725150 5.276450e-107
-DDD1                              -8.301905e-01 9.745672e-02  -8.5185558  1.615551e-17
-CCC1                               1.570042e-01 8.997274e-02   1.7450199  8.098141e-02
-Times                             -9.763935e-01 8.628068e-02 -11.3164786  1.087532e-29
+(Intercept)                        9.862375e+00 9.018823e-01  10.9353246  7.812586e-28
+Age                                3.673104e-03 1.209479e-03   3.0369299  2.390010e-03
+GenderMale                         1.213508e-01 4.998496e-02   2.4277466  1.519296e-02
+GenderUnknown                      7.400504e-02 6.818632e-02   1.0853355  2.777731e-01
+Income                            -2.359879e-06 8.718306e-07  -2.7068094  6.793326e-03
+Assigned_FundraiserCanvasser      -9.202429e-01 8.615350e-02 -10.6814343  1.243356e-26
+Assigned_FundraiserFrontliner     -1.485436e+00 2.075112e-01  -7.1583422  8.165852e-13
+Assigned_FundraiserSaver          -6.604016e-01 1.031417e-01  -6.4028564  1.524966e-10
+Assigned_FundraiserTelefundraiser -3.445890e-01 8.926591e-02  -3.8602532  1.132696e-04
+Assigned_FundraiserWEB             1.984448e-01 2.134383e-01   0.9297525  3.524992e-01
+Sign_Up_Amount                    -3.655851e-02 1.977466e-03 -18.4875512  2.601006e-76
+FrequencyMONTHLY GIVING           -8.114055e+00 8.641458e-01  -9.3896826  6.018135e-21
+Total_Gift_Amount                  5.324844e-03 1.612737e-04  33.0174261 4.567113e-239
+DDD1                              -7.822929e-01 9.595510e-02  -8.1526968  3.558972e-16
+CCC1                               1.702339e-01 8.804622e-02   1.9334610  5.317944e-02
+Times                             -9.527222e-01 8.066817e-02 -11.8103858  3.449746e-32
 ```
-
----
-
-## Model Prediction
-
-- # Variable selection
 
 
 ---
