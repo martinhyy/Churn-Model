@@ -330,10 +330,11 @@ Times                             -9.527222e-01 8.066817e-02 -11.8103858  3.4497
 - # On the paper
 
 $$\pi = \frac{exp(\beta_0 + \beta_1V_1 + \beta_2V_2 + ...)}{1 + exp(\beta_0 + \beta_1V_1 + \beta_2V_2 + ...)}$$
+<br>
 
- where $\beta_0, \beta_1, \beta_2, ...$ are the coefficients
- \\
-       $\V_1, \V_2, ...$ are the significant variables
+> - # $\beta_0, \beta_1, \beta_2, ...$ are the coefficients
+        
+> - # $V_1, V_2, ...$ are the significant variables
 
 ---
 
