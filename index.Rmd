@@ -62,6 +62,12 @@ code.vhdl{
   font-size: 15px;
 
 }
+
+pre code.1c {
+  font-size: 50%;
+
+}
+
 </style>
 
 ## Churn Prediction Brief 
@@ -189,8 +195,45 @@ head(df)
 ---
 
 ## Model Prediction
-<br>
-# Variable selection
+
+- # Check correlation between variables 
+
+- # All numeric variables are checked here
+
+```{r warning=FALSE, comment=NA, message=FALSE}
+options(width=300)
+round(cor(df[,c("Income", "Age", "Sign_Up_Amount", 
+                "First_Gift_Amount", "Last_Gift_Amount", 
+                "Total_Number_Of_Gifts", "Total_Gift_Amount", "Times")]),2)
+```
+
+---
+
+## Model Prediction
+
+- # Correlation matrix tells us some of the variable are highly correlated (collinearity ).
+
+- # This means those variables can't be used in the model at the same time.
+
+- # Which variable should be used?
+
+---
+
+## Model Prediction
+
+- # A simple approach to identify collinearity among explanatory variables is the use of variance inflation factors (`VIF`)
+
+- # The higher the value, the higher the collinearity
+
+
+```{r warning=FALSE, comment=NA, message=FALSE}
+vif <- diag(solve(cor(df[,c("Income", "Age", "Sign_Up_Amount", 
+                "First_Gift_Amount", "Last_Gift_Amount", 
+                "Total_Number_Of_Gifts", "Total_Gift_Amount", "Times")])))
+vif
+```
+
+- # From the result we can tell we should firstly remove `Last_Gift_Amount` first
 
 --- 
 
@@ -225,11 +268,11 @@ my_model <- glm(Status.Indicator ~ Age
                  + Assigned_Fundraiser 
                  + Sign_Up_Amount 
                  + Frequency 
-                 + First_Gift_Amount 
-                 + Last_Gift_Amount 
+                 #+ First_Gift_Amount 
+                 #+ Last_Gift_Amount 
                  #+ Saved 
                  #+ Upgrade 
-                 + Total_Number_Of_Gifts
+                 #+ Total_Number_Of_Gifts
                  + Total_Gift_Amount
                  + DDD 
                  + CCC 
@@ -245,17 +288,17 @@ my_model <- glm(Status.Indicator ~ Age
 
 *** =right
 
-```{r warning=FALSE, comment=NA, message=FALSE, eval=TRUE, echo=FALSE, results='asis'}
-summary(my_model)
+```{r warning=FALSE, comment=NA, message=FALSE, eval=TRUE, echo=FALSE, results='markup'}
+options(width=300)
+summary(my_model)$coefficients
 ```
+
 
 ---
 
 ## How to use the output of the model
 <br>
-
-- # On the paper
-
+- # 
 
 - # Using R `predict()` function
 
@@ -263,11 +306,11 @@ summary(my_model)
 prob <- predict(my_model, df, type = "response")
 ```
    
-  - # Data set `df` should contain the exact columns used in the model
+>  - # Data set `df` should contain the exact variables used in the model
 
-  - # Please note:
-       > - ahaah
-       > - ahahh
+>  - # Please note:
+       > - If we want to use `predict()` to calculate the probability of the response variable for a given dataset, `type="response"` should be specified
+       > - Otherwise, the result will be the some other value but still related to probability (log-odds)
 
 ---
 
