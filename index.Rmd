@@ -19,7 +19,7 @@ hitheme: tomorrow
 highlighter : highlight.js
 subtitle: R Predictive Modelling
 framework: io2012
-widgets: [shiny, interactive]
+widgets: [shiny, interactive, mathjax]
 ---
 
 <style>
@@ -227,11 +227,14 @@ round(cor(df[,c("Income", "Age", "Sign_Up_Amount",
 
 
 ```{r warning=FALSE, comment=NA, message=FALSE}
+options(width=300)
 vif <- diag(solve(cor(df[,c("Income", "Age", "Sign_Up_Amount", 
                 "First_Gift_Amount", "Last_Gift_Amount", 
                 "Total_Number_Of_Gifts", "Total_Gift_Amount", "Times")])))
 vif
 ```
+
+- #
 
 - # From the result we can tell we should firstly remove `Last_Gift_Amount` first
 
@@ -256,8 +259,9 @@ my_model <- glm(Status.Indicator ~ Age + Gender + Income + Assigned_Fundraier + 
 --- &twocol
 
 ## Model Prediction
+- # 
 
-- Logistic regression gives us the coefficients of all variables that are included in the model.
+- # Logistic regression gives us the coefficients of all variables that are included in the model.
 
 *** =left
 
@@ -293,6 +297,18 @@ options(width=300)
 summary(my_model)$coefficients
 ```
 
+---
+## How to use the output of the model
+<br>
+- # 
+
+- # On the paper
+
+$$\pi = \frac{exp(\beta_0 + \beta_1V_1 + \beta_2V_2 + ...)}{1 + exp(\beta_0 + \beta_1V_1 + \beta_2V_2 + ...)}$$
+
+ where $\beta_0, \beta_1, \beta_2, ...$ are the coefficients
+ \\
+       $\V_1, \V_2, ...$ are the significant variables
 
 ---
 

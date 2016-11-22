@@ -332,7 +332,8 @@ Times                  -0.01  0.11           0.07              0.03             
 <li><h1>The higher the value, the higher the collinearity</h1></li>
 </ul>
 
-<pre><code class="r">vif &lt;- diag(solve(cor(df[,c(&quot;Income&quot;, &quot;Age&quot;, &quot;Sign_Up_Amount&quot;, 
+<pre><code class="r">options(width=300)
+vif &lt;- diag(solve(cor(df[,c(&quot;Income&quot;, &quot;Age&quot;, &quot;Sign_Up_Amount&quot;, 
                 &quot;First_Gift_Amount&quot;, &quot;Last_Gift_Amount&quot;, 
                 &quot;Total_Number_Of_Gifts&quot;, &quot;Total_Gift_Amount&quot;, &quot;Times&quot;)])))
 vif
@@ -343,7 +344,8 @@ vif
 </code></pre>
 
 <ul>
-<li># From the result we can tell we should firstly remove <code>Last_Gift_Amount</code> first</li>
+<li><p>#</p></li>
+<li><h1>From the result we can tell we should firstly remove <code>Last_Gift_Amount</code> first</h1></li>
 </ul>
 
   </article>
@@ -379,7 +381,8 @@ Logistic regression is part of <font color="red">G</font>eneralized <font color=
   </hgroup>
   <article data-timings="">
     <ul>
-<li>Logistic regression gives us the coefficients of all variables that are included in the model.</li>
+<li></li>
+<li><h1>Logistic regression gives us the coefficients of all variables that are included in the model.</h1></li>
 </ul>
 
 <div style='float:left;width:48%;' class='centered'>
@@ -440,6 +443,28 @@ Times                             -9.527222e-01 8.066817e-02 -11.8103858  3.4497
 
 <ul>
 <li></li>
+<li><h1>On the paper</h1></li>
+</ul>
+
+<p>\[\pi = \frac{exp(\beta_0 + \beta_1V_1 + \beta_2V_2 + ...)}{1 + exp(\beta_0 + \beta_1V_1 + \beta_2V_2 + ...)}\]</p>
+
+<p>where \(\beta_0, \beta_1, \beta_2, ...\) are the coefficients
+ \
+       \(\V_1, \V_2, ...\) are the significant variables</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>How to use the output of the model</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<ul>
+<li></li>
 <li><h1>Using R <code>predict()</code> function</h1></li>
 </ul>
 
@@ -460,7 +485,7 @@ Times                             -9.527222e-01 8.066817e-02 -11.8103858  3.4497
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-14" style="background:;">
+<slide class="" id="slide-15" style="background:;">
   <hgroup>
     <h2>How do we target people</h2>
   </hgroup>
@@ -476,7 +501,7 @@ Times                             -9.527222e-01 8.066817e-02 -11.8103858  3.4497
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-15" style="background:;">
+<slide class="" id="slide-16" style="background:;">
   <hgroup>
     <h2>Accuracy of Current Model</h2>
   </hgroup>
@@ -491,7 +516,7 @@ Times                             -9.527222e-01 8.066817e-02 -11.8103858  3.4497
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-16" style="background:;">
+<slide class="" id="slide-17" style="background:;">
   <hgroup>
     <h2>Questions?</h2>
   </hgroup>
@@ -585,20 +610,26 @@ Times                             -9.527222e-01 8.066817e-02 -11.8103858  3.4497
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=14 title='How do we target people'>
+        data-slide=14 title='How to use the output of the model'>
          14
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=15 title='Accuracy of Current Model'>
+        data-slide=15 title='How do we target people'>
          15
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=16 title='Questions?'>
+        data-slide=16 title='Accuracy of Current Model'>
          16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Questions?'>
+         17
       </a>
     </li>
   </ul>
@@ -619,7 +650,21 @@ Times                             -9.527222e-01 8.066817e-02 -11.8103858  3.4497
   <script src="shared/bootstrap/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="shared/slider/css/jquery.slider.min.css"></link>
   
-  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
   <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
   <!-- DONE LOADING HIGHLIGHTER JS FILES -->
