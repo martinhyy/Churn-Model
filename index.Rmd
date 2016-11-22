@@ -234,7 +234,7 @@ vif <- diag(solve(cor(df[,c("Income", "Age", "Sign_Up_Amount",
 vif
 ```
 
-- #
+- # 
 
 - # From the result we can tell we should firstly remove `Last_Gift_Amount` first
 
@@ -344,6 +344,8 @@ prob <- predict(my_model, df, type = "response")
 
 ## Accuracy of Current Model
 <br>
+- # 
+
 - # Currently we can pick out 16.7% of our monthly cancellations
 
 ---

@@ -243,7 +243,7 @@ vif
              1.013195              1.015675              2.091509              4.798189              6.827333              3.353585              3.513616              1.416261 
 ```
 
-- #
+- # 
 
 - # From the result we can tell we should firstly remove `Last_Gift_Amount` first
 
@@ -370,6 +370,8 @@ prob <- predict(my_model, df, type = "response")
 
 ## Accuracy of Current Model
 <br>
+- # 
+
 - # Currently we can pick out 16.7% of our monthly cancellations
 
 ---
