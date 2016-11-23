@@ -63,7 +63,7 @@ code.vhdl{
 
 }
 
-pre code.1c {
+code.parser3 {
   font-size: 50%;
 
 }
@@ -158,13 +158,13 @@ pre code.1c {
 
 ```{r warning=FALSE, comment=NA, message=FALSE, tidy=TRUE, echo=FALSE, eval=TRUE, results='markup'}
 options(width=300)
-df.raw <- read.csv("F:\\Work\\Greenpeace\\Churn-Model\\Data\\Churn 2016-16-11 by Sign ups.csv",
+df.raw <- read.csv("X:\\Box Sync\\Fundraising\\Analysis\\Martin\\Churn Analysis\\Data\\Churn 2016-16-11 by Sign ups.csv",
                    header = T,
                    stringsAsFactors = F)
 df <- subset(df.raw, select = c(Constituent_ID, Age,
                                 Gender, Income, Assigned_Fundraiser, 
                                 Sign_Up_Amount, Frequency, Current_Status,Status.Indicator,
-                                First_Gift_Amount, Last_Gift_Amount, Saved,
+                                First_Gift_Amount, Last_Gift_Amount, Saved, Duration,
                                 Upgrade, Total_Number_Of_Gifts, Total_Gift_Amount,
                                 DDD, CCC, Times, DDDown
                                 ),
@@ -198,7 +198,7 @@ head(df)
 
 - # Check correlation between variables 
 
-- # All numeric variables are checked here
+- # Some numeric variables are checked here
 
 ```{r warning=FALSE, comment=NA, message=FALSE}
 options(width=300)
@@ -206,6 +206,23 @@ round(cor(df[,c("Income", "Age", "Sign_Up_Amount",
                 "First_Gift_Amount", "Last_Gift_Amount", 
                 "Total_Number_Of_Gifts", "Total_Gift_Amount", "Times")]),2)
 ```
+
+<!--
+---
+
+## Model Prediction
+
+- # 
+
+- # A visualized way to see how some of the variables are correlated
+
+```{r comment=NA, warning=FALSE, message=FALSE}
+
+plot(df[, c("Sign_Up_Amount", "First_Gift_Amount", "Last_Gift_Amount", "Total_Number_Of_Gifts", "Total_Gift_Amount")])
+
+```
+-->
+
 
 ---
 
@@ -278,6 +295,7 @@ my_model <- glm(Status.Indicator ~ Age
                  #+ Upgrade 
                  #+ Total_Number_Of_Gifts
                  + Total_Gift_Amount
+                 + Duration
                  + DDD 
                  + CCC 
                  + Times 
@@ -292,9 +310,9 @@ my_model <- glm(Status.Indicator ~ Age
 
 *** =right
 
-```{r warning=FALSE, comment=NA, message=FALSE, eval=TRUE, echo=FALSE, results='markup'}
+```{r output, warning=FALSE, comment=NA, message=FALSE, eval=TRUE, echo=FALSE}
 options(width=300)
-summary(my_model)$coefficients
+summary(my_model)
 ```
 
 ---
@@ -328,6 +346,55 @@ prob <- predict(my_model, df, type = "response")
 >  - # Please note:
        > - If we want to use `predict()` to calculate the probability of the response variable for a given dataset, `type="response"` should be specified
        > - Otherwise, the result will be the some other value but still related to probability (log-odds)
+
+--- &twocol
+
+## How to use the output of the model
+
+- # 
+
+- # Predict the probability of a person still with us after a certain amount of time
+
+*** =left
+
+```{r warning=FALSE, comment=NA, message=FALSE, eval=FALSE}
+df.test <- data.frame(Age = 27, 
+                      Gender = as.factor("Female"), 
+                      Income = 30800, 
+                      Assigned_Fundraiser = as.factor("Agency FR"),
+                      Frequency = as.factor("MONTHLY GIVING"), 
+                      Duration = c(1:24),
+                      Sign_Up_Amount = 10, 
+                      Total_Gift_Amount = 171,
+                      DDD = as.factor(0), 
+                      CCC = as.factor(0),
+                      Times=1)
+
+prob.test <- predict(my_model, df.test, type = "response")
+plot(prob.test, type = "l", 
+     main = "Probability of a person being active by months", 
+     ylab = "Probability",
+     xlab = "Month")
+```
+
+
+*** =right
+
+```{r warning=FALSE, comment=NA, message=FALSE, echo=FALSE, fig.height=6, fig.width=6}
+df.test <- data.frame(Age=27, Gender=as.factor("Female"), 
+                      Income=30800, Assigned_Fundraiser=as.factor("Agency FR"), 
+                      Frequency=as.factor("MONTHLY GIVING"), Duration=c(1:24),
+                      Sign_Up_Amount=10, Total_Gift_Amount=171, 
+                      DDD=as.factor(0), CCC=as.factor(0), 
+                      Times=1)
+
+prob.test <- predict(my_model, df.test, type = "response")
+plot(prob.test, type = "l", main = "Probability of a person being active by months", 
+     ylab = "Probability",
+     xlab = "Month")
+```
+
+
 
 ---
 
