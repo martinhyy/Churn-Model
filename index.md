@@ -152,7 +152,7 @@ code.parser3 {
 ## Model Prediction
 
 <br>
-# Choose all sign ups from the 2015-06-01 to 2015-05-31.
+# Choose all sign ups from the 2015-06-01 to 2016-05-31.
 
 - Choose all the variables we would like to look at.
 
