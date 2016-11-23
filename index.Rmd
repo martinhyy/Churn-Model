@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 title: "Greenpeace Insight Skillshare"
 author: "Martin Hou"
@@ -438,3 +439,445 @@ plot(prob.test, type = "l", main = "Probability of a person being active by mont
 
 
 
+=======
+---
+title: "Greenpeace Insight Skillshare"
+author: "Martin Hou"
+date: '`r format(Sys.time(), "%d %B, %Y")`'
+output:
+  ioslides_presentation:
+    <!--css: styles.css -->
+    incremental: yes
+    logo: sb7ixc5z.png
+    transition: default
+    widescreen: yes
+  slidy_presentation:
+    incremental: yes
+job: Data Specialist
+logo: sb7ixc5z.png
+license: by-nc-sa
+mode: selfcontained
+hitheme: tomorrow
+highlighter : highlight.js
+subtitle: R Predictive Modelling
+framework: io2012
+widgets: [shiny, interactive, mathjax]
+---
+
+<style>
+pre code, pre, code {
+  white-space: pre !important;
+  overflow-x: scroll !important;
+  word-break: keep-all !important;
+  word-wrap: initial !important;
+}
+
+aside.gdbar img{
+  
+  width: 80px;
+  height: 80px;
+
+
+}
+
+div.centered {
+
+  text-align: left;
+
+
+}
+
+/*
+code.coffeescript {
+
+  font-size: 5px;
+
+}
+*/
+
+code.r{ /* Code block */
+  font-size: 15px;
+}
+
+code.vhdl{
+
+  font-size: 15px;
+
+}
+
+code.parser3 {
+  font-size: 50%;
+
+}
+
+</style>
+
+## Churn Prediction Brief 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+ <center><img src="assets/img/churn_small.jpg" width="55%" height="55%" align="right"></center>
+
+---
+
+## What is Churn Prediction
+<br>
+> - # Survival Analysis
+     - First used in clinical trials and the event of interest was dead or alive.
+
+> - # Now it is widely used to predict the probability of occurrence of an event.
+     - In a dataset   
+        - 1: an event occurred
+        - 0: an event didn't occur
+
+---
+
+## The purpose of Churner Prediction
+<br>
+> - # Find people who are likely to churn.
+
+
+> - # Try to find a way to interact with them and keep them on board.
+
+> - # Improve our retention rate.
+
+---
+
+## The process of Churn Prediction
+<br>
+> - # Choose historical data
+
+> - # Build model based on historical data
+     - Significant variables and their weight (coefficient) can be picked out.
+    
+> - # Apply the coefficient (weight) of variables on our current active members and get probability
+> - # Pick up the first 1000 people with lowest probability
+
+
+--- &twocol
+
+## The variables we would like to look at
+
+*** =left
+
+>  Categorical Data  
+
+   - Membership Status (1, 0)
+   - Gender
+   - Sign Up source
+   - Frequency
+   - Ever Saved?
+   - Upgrade?
+   - DD dishonoured?
+   - ChargeBack
+
+*** =right
+      
+>  Numeric Data  
+
+   - Income
+   - Recurring gift amount
+   - Recurring first gift amount
+   - Recurring last gift amount
+   - Total gift amount
+   - Total number of gifts
+   - Age
+   - Duration (Since the most recent sign up date)
+
+
+---
+
+
+## Model Prediction
+
+<br>
+# Choose all sign ups from the 2015-06-01 to 2015-05-31.
+
+- Choose all the variables we would like to look at.
+
+```{r warning=FALSE, comment=NA, message=FALSE, tidy=TRUE, echo=FALSE, eval=TRUE, results='markup'}
+options(width=300)
+df.raw <- read.csv("X:\\Box Sync\\Fundraising\\Analysis\\Martin\\Churn Analysis\\Data\\Churn 2016-16-11 by Sign ups.csv",
+                   header = T,
+                   stringsAsFactors = F)
+df <- subset(df.raw, select = c(Constituent_ID, Age,
+                                Gender, Income, Assigned_Fundraiser, 
+                                Sign_Up_Amount, Frequency, Current_Status,Status.Indicator,
+                                First_Gift_Amount, Last_Gift_Amount, Saved, Duration,
+                                Upgrade, Total_Number_Of_Gifts, Total_Gift_Amount,
+                                DDD, CCC, Times, DDDown
+                                ),
+             Frequency %in% c("MONTHLY GIVING", "ANNUAL GIVING")
+             )
+df$Current_Status <- ifelse(df$Current_Status %in% "Terminated", "Terminated", "Active")
+df[c("Gender", "Assigned_Fundraiser", "Frequency", "Current_Status", "Status.Indicator","Saved", "Upgrade", "DDD", "CCC", "DDDown")] <- 
+  lapply(df[c("Gender", "Assigned_Fundraiser", "Frequency", "Current_Status", "Status.Indicator","Saved", "Upgrade", "DDD", "CCC", "DDDown")], as.factor)
+head(df)
+
+```
+
+
+---
+
+## Model Prediction
+<br>
+# Changing character/text variables into factors
+
+> - # Values in `Current_Status`, `Gender`, `Assigned_Fundraiser` and all other categorical variables should be changed into numbers
+       - `Active`, `Terminated` will become 1, 0
+       - `Female`, `Male`, `Unknown` will become 1, 2, 3
+       - `Telefundraiser`, `Canvasser`, `Frontliner`, `WEB`, `Saver` will become 1, 2, 3, 4, 5
+<br>
+
+> - # The numbers here are not really numeric. It only tells the programme which is first category, second category and etc. 
+
+---
+
+## Model Prediction
+
+- # Check correlation between variables 
+
+- # Some numeric variables are checked here
+
+```{r warning=FALSE, comment=NA, message=FALSE}
+options(width=300)
+round(cor(df[,c("Income", "Age", "Sign_Up_Amount", 
+                "First_Gift_Amount", "Last_Gift_Amount", 
+                "Total_Number_Of_Gifts", "Total_Gift_Amount", "Times")]),2)
+```
+
+<!--
+---
+
+## Model Prediction
+
+- # 
+
+- # A visualized way to see how some of the variables are correlated
+
+```{r comment=NA, warning=FALSE, message=FALSE}
+
+plot(df[, c("Sign_Up_Amount", "First_Gift_Amount", "Last_Gift_Amount", "Total_Number_Of_Gifts", "Total_Gift_Amount")])
+
+```
+-->
+
+
+---
+
+## Model Prediction
+
+- # Correlation matrix tells us some of the variable are highly correlated (collinearity ).
+
+- # This means those variables can't be used in the model at the same time.
+
+- # Which variable should be used?
+
+---
+
+## Model Prediction
+
+- # A simple approach to identify collinearity among explanatory variables is the use of variance inflation factors (`VIF`)
+
+- # The higher the value, the higher the collinearity
+
+
+```{r warning=FALSE, comment=NA, message=FALSE}
+options(width=300)
+vif <- diag(solve(cor(df[,c("Income", "Age", "Sign_Up_Amount", 
+                "First_Gift_Amount", "Last_Gift_Amount", 
+                "Total_Number_Of_Gifts", "Total_Gift_Amount", "Times")])))
+vif
+```
+
+- # 
+
+- # From the result we can tell we should firstly remove `Last_Gift_Amount` first
+
+--- 
+
+## Model Prediction
+<br>
+# Logistic regression is used. It deals with scenarios with 2 outcomes.
+
+<br>
+Logistic regression is part of <font color="red">G</font>eneralized <font color="red">L</font>inear <font color="red">M</font>odel (`GLM`) family
+
+The syntax of a `logistic` regression will be like the script below
+
+```{r warning=FALSE, comment=NA, message=FALSE, eval=FALSE}
+my_model <- glm(Status.Indicator ~ Age + Gender + Income + Assigned_Fundraier + ..., 
+                data = df,
+                family = binomial(logit))
+
+```
+
+--- &twocol
+
+## Model Prediction
+- # 
+
+- # Logistic regression gives us the coefficients of all variables that are included in the model.
+
+*** =left
+
+```{r warning=FALSE, comment=NA, message=FALSE, eval=TRUE, results='hide'}
+my_model <- glm(Status.Indicator ~ Age 
+                 + Gender 
+                 + Income
+                 + Assigned_Fundraiser 
+                 + Sign_Up_Amount 
+                 + Frequency 
+                 #+ First_Gift_Amount 
+                 #+ Last_Gift_Amount 
+                 #+ Saved 
+                 #+ Upgrade 
+                 #+ Total_Number_Of_Gifts
+                 + Total_Gift_Amount
+                 + Duration
+                 + DDD 
+                 + CCC 
+                 + Times 
+                 #+ DDDown
+                 , 
+                 data = df,
+                 family = binomial(logit)
+                )
+
+```
+
+
+*** =right
+
+```{r output, warning=FALSE, comment=NA, message=FALSE, eval=TRUE, echo=FALSE}
+options(width=300)
+summary(my_model)
+```
+
+---
+## How to use the output of the model
+<br>
+- # 
+
+- # On the paper
+
+$$\pi = \frac{exp(\beta_0 + \beta_1V_1 + \beta_2V_2 + ...)}{1 + exp(\beta_0 + \beta_1V_1 + \beta_2V_2 + ...)}$$
+<br>
+
+> - # $\beta_0, \beta_1, \beta_2, ...$ are the coefficients
+        
+> - # $V_1, V_2, ...$ are the significant variables
+
+---
+
+## How to use the output of the model
+<br>
+- # 
+
+- # Using R `predict()` function
+
+```{r warning=FALSE, message=FALSE, comment=NA, eval=FALSE}
+prob <- predict(my_model, df, type = "response")
+```
+   
+>  - # Data set `df` should contain the exact variables used in the model
+
+>  - # Please note:
+       > - If we want to use `predict()` to calculate the probability of the response variable for a given dataset, `type="response"` should be specified
+       > - Otherwise, the result will be the some other value but still related to probability (log-odds)
+
+--- &twocol
+
+## How to use the output of the model
+
+- # 
+
+- # Predict the probability of a person still with us after a certain amount of time
+
+*** =left
+
+```{r warning=FALSE, comment=NA, message=FALSE, eval=FALSE}
+df.test <- data.frame(Age = 27, 
+                      Gender = as.factor("Female"), 
+                      Income = 30800, 
+                      Assigned_Fundraiser = as.factor("Agency FR"),
+                      Frequency = as.factor("MONTHLY GIVING"), 
+                      Duration = c(1:24),
+                      Sign_Up_Amount = 10, 
+                      Total_Gift_Amount = 171,
+                      DDD = as.factor(0), 
+                      CCC = as.factor(0),
+                      Times=1)
+
+prob.test <- predict(my_model, df.test, type = "response")
+plot(prob.test, type = "l", 
+     main = "Probability of a person being active by months", 
+     ylab = "Probability",
+     xlab = "Month")
+```
+
+
+*** =right
+
+```{r warning=FALSE, comment=NA, message=FALSE, echo=FALSE, fig.height=6, fig.width=6}
+df.test <- data.frame(Age=27, Gender=as.factor("Female"), 
+                      Income=30800, Assigned_Fundraiser=as.factor("Agency FR"), 
+                      Frequency=as.factor("MONTHLY GIVING"), Duration=c(1:24),
+                      Sign_Up_Amount=10, Total_Gift_Amount=171, 
+                      DDD=as.factor(0), CCC=as.factor(0), 
+                      Times=1)
+
+prob.test <- predict(my_model, df.test, type = "response")
+plot(prob.test, type = "l", main = "Probability of a person being active by months", 
+     ylab = "Probability",
+     xlab = "Month")
+```
+
+
+
+---
+
+## How do we target people
+<br>
+
+- # Apply the coefficients on current active members we can produce the probability of a person stays with us in the future.
+
+- # We pick out people with low probability.
+
+
+
+---
+
+## Accuracy of Current Model
+<br>
+- # 
+
+- # Currently we can pick out 16.7% of our monthly cancellations
+
+---
+
+## Questions?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> origin/master

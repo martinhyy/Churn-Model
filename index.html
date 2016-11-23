@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -757,4 +758,765 @@ plot(prob.test, type = &quot;l&quot;,
   <script>hljs.initHighlightingOnLoad();</script>
   <!-- DONE LOADING HIGHLIGHTER JS FILES -->
    
+=======
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Greenpeace Insight Skillshare</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Greenpeace Insight Skillshare">
+  <meta name="author" content="Martin Hou">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="libraries/widgets/interactive/css/aceeditor.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <aside class="gdbar">
+    <img src="assets/img/sb7ixc5z.png">
+  </aside>
+  <hgroup class="auto-fadein">
+    <h1>Greenpeace Insight Skillshare</h1>
+    <h2>R Predictive Modelling</h2>
+    <p>Martin Hou<br/>Data Specialist</p>
+  </hgroup>
+  <article></article>  
+  <footer class = 'license'>
+    <a href='http://creativecommons.org/licenses/by-nc-sa/3.0/'>
+    <img width = '80px' src = 'http://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc-sa.png'>
+    </a>
+  </footer>
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <article data-timings="">
+    <style>
+pre code, pre, code {
+  white-space: pre !important;
+  overflow-x: scroll !important;
+  word-break: keep-all !important;
+  word-wrap: initial !important;
+}
+
+aside.gdbar img{
+  
+  width: 80px;
+  height: 80px;
+
+
+}
+
+div.centered {
+
+  text-align: left;
+
+
+}
+
+/*
+code.coffeescript {
+
+  font-size: 5px;
+
+}
+*/
+
+code.r{ /* Code block */
+  font-size: 15px;
+}
+
+code.vhdl{
+
+  font-size: 15px;
+
+}
+
+code.parser3 {
+  font-size: 50%;
+
+}
+
+</style>
+
+<h2>Churn Prediction Brief</h2>
+
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+ <center><img src="assets/img/churn_small.jpg" width="55%" height="55%" align="right"></center></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>What is Churn Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<ul class = "build incremental">
+<li><h1>Survival Analysis</h1>
+
+<ul>
+<li>First used in clinical trials and the event of interest was dead or alive.</li>
+</ul></li>
+<li><h1>Now it is widely used to predict the probability of occurrence of an event.</h1>
+
+<ul>
+<li>In a dataset<br>
+
+<ul>
+<li>1: an event occurred</li>
+<li>0: an event didn&#39;t occur</li>
+</ul></li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>The purpose of Churner Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<ul class = "build incremental">
+<li><h1>Find people who are likely to churn.</h1></li>
+<li><h1>Try to find a way to interact with them and keep them on board.</h1></li>
+<li><h1>Improve our retention rate.</h1></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>The process of Churn Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<ul class = "build incremental">
+<li><h1>Choose historical data</h1></li>
+<li><h1>Build model based on historical data</h1>
+
+<ul>
+<li>Significant variables and their weight (coefficient) can be picked out.</li>
+</ul></li>
+<li><h1>Apply the coefficient (weight) of variables on our current active members and get probability</h1></li>
+<li><h1>Pick up the first 1000 people with lowest probability</h1></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>The variables we would like to look at</h2>
+  </hgroup>
+  <article data-timings="">
+    
+<div style='float:left;width:48%;' class='centered'>
+  <blockquote>
+<p>Categorical Data  </p>
+</blockquote>
+
+<ul>
+<li>Membership Status (1, 0)</li>
+<li>Gender</li>
+<li>Sign Up source</li>
+<li>Frequency</li>
+<li>Ever Saved?</li>
+<li>Upgrade?</li>
+<li>DD dishonoured?</li>
+<li>ChargeBack</li>
+</ul>
+
+</div>
+<div style='float:right;width:48%;'>
+  <blockquote>
+<p>Numeric Data  </p>
+</blockquote>
+
+<ul>
+<li>Income</li>
+<li>Recurring gift amount</li>
+<li>Recurring first gift amount</li>
+<li>Recurring last gift amount</li>
+<li>Total gift amount</li>
+<li>Total number of gifts</li>
+<li>Age</li>
+<li>Duration (Since the most recent sign up date)</li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Model Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<h1>Choose all sign ups from the 2015-06-01 to 2015-05-31.</h1>
+
+<ul>
+<li>Choose all the variables we would like to look at.</li>
+</ul>
+
+<pre><code>  Constituent_ID Age Gender Income Assigned_Fundraiser Sign_Up_Amount      Frequency Current_Status Status.Indicator First_Gift_Amount Last_Gift_Amount Saved Duration Upgrade Total_Number_Of_Gifts Total_Gift_Amount DDD CCC Times DDDown
+1         108859  68 Female  45000      Telefundraiser             35 MONTHLY GIVING         Active                1                25               35     0       10       1                    61              1145   0   0     2      0
+2         121705  84 Female      0           Canvasser             25 MONTHLY GIVING     Terminated                0                25               25     0        1       0                     2                50   0   0     1      0
+3         123157  59   Male      0      Telefundraiser             30 MONTHLY GIVING     Terminated                0                30               30     0       10       0                   198              2745   0   0     2      0
+4          16717  83 Female  75000           Canvasser             25 MONTHLY GIVING         Active                1                 0                0     0       16       0                     0                 0   0   1     1      0
+5          17349   0 Female  80700      Telefundraiser             50 MONTHLY GIVING         Active                1                50               50     0       10       0                    22               950   0   0     2      0
+6          28989   0 Female  51700      Telefundraiser             26 MONTHLY GIVING         Active                1                26               26     0       11       0                    24               617   0   0     2      0
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Model Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<h1>Changing character/text variables into factors</h1>
+
+<ul class = "build incremental">
+<li><h1>Values in <code>Current_Status</code>, <code>Gender</code>, <code>Assigned_Fundraiser</code> and all other categorical variables should be changed into numbers</h1>
+
+<ul>
+<li><code>Active</code>, <code>Terminated</code> will become 1, 0</li>
+<li><code>Female</code>, <code>Male</code>, <code>Unknown</code> will become 1, 2, 3</li>
+<li><code>Telefundraiser</code>, <code>Canvasser</code>, <code>Frontliner</code>, <code>WEB</code>, <code>Saver</code> will become 1, 2, 3, 4, 5
+<br></li>
+</ul></li>
+<li><h1>The numbers here are not really numeric. It only tells the programme which is first category, second category and etc.</h1></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Model Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><h1>Check correlation between variables</h1></li>
+<li><h1>Some numeric variables are checked here</h1></li>
+</ul>
+
+<pre><code class="r">options(width=300)
+round(cor(df[,c(&quot;Income&quot;, &quot;Age&quot;, &quot;Sign_Up_Amount&quot;, 
+                &quot;First_Gift_Amount&quot;, &quot;Last_Gift_Amount&quot;, 
+                &quot;Total_Number_Of_Gifts&quot;, &quot;Total_Gift_Amount&quot;, &quot;Times&quot;)]),2)
+</code></pre>
+
+<pre><code>                      Income   Age Sign_Up_Amount First_Gift_Amount Last_Gift_Amount Total_Number_Of_Gifts Total_Gift_Amount Times
+Income                  1.00 -0.01           0.03              0.07             0.06                  0.06              0.09 -0.01
+Age                    -0.01  1.00           0.02             -0.01             0.01                  0.09              0.09  0.11
+Sign_Up_Amount          0.03  0.02           1.00              0.55             0.70                  0.03              0.28  0.07
+First_Gift_Amount       0.07 -0.01           0.55              1.00             0.88                  0.11              0.27  0.03
+Last_Gift_Amount        0.06  0.01           0.70              0.88             1.00                  0.11              0.36  0.05
+Total_Number_Of_Gifts   0.06  0.09           0.03              0.11             0.11                  1.00              0.79  0.53
+Total_Gift_Amount       0.09  0.09           0.28              0.27             0.36                  0.79              1.00  0.45
+Times                  -0.01  0.11           0.07              0.03             0.05                  0.53              0.45  1.00
+</code></pre>
+
+<!--
+---
+
+## Model Prediction
+
+- # 
+
+- # A visualized way to see how some of the variables are correlated
+
+
+```r
+plot(df[, c("Sign_Up_Amount", "First_Gift_Amount", "Last_Gift_Amount", "Total_Number_Of_Gifts", "Total_Gift_Amount")])
+```
+
+![plot of chunk unnamed-chunk-3](assets/fig/unnamed-chunk-3-1.png)
+-->
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Model Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><h1>Correlation matrix tells us some of the variable are highly correlated (collinearity ).</h1></li>
+<li><h1>This means those variables can&#39;t be used in the model at the same time.</h1></li>
+<li><h1>Which variable should be used?</h1></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Model Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><h1>A simple approach to identify collinearity among explanatory variables is the use of variance inflation factors (<code>VIF</code>)</h1></li>
+<li><h1>The higher the value, the higher the collinearity</h1></li>
+</ul>
+
+<pre><code class="r">options(width=300)
+vif &lt;- diag(solve(cor(df[,c(&quot;Income&quot;, &quot;Age&quot;, &quot;Sign_Up_Amount&quot;, 
+                &quot;First_Gift_Amount&quot;, &quot;Last_Gift_Amount&quot;, 
+                &quot;Total_Number_Of_Gifts&quot;, &quot;Total_Gift_Amount&quot;, &quot;Times&quot;)])))
+vif
+</code></pre>
+
+<pre><code>               Income                   Age        Sign_Up_Amount     First_Gift_Amount      Last_Gift_Amount Total_Number_Of_Gifts     Total_Gift_Amount                 Times 
+             1.013195              1.015675              2.091509              4.798189              6.827333              3.353585              3.513616              1.416261 
+</code></pre>
+
+<ul>
+<li></li>
+<li><h1>From the result we can tell we should firstly remove <code>Last_Gift_Amount</code> first</h1></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Model Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<h1>Logistic regression is used. It deals with scenarios with 2 outcomes.</h1>
+
+<p><br>
+Logistic regression is part of <font color="red">G</font>eneralized <font color="red">L</font>inear <font color="red">M</font>odel (<code>GLM</code>) family</p>
+
+<p>The syntax of a <code>logistic</code> regression will be like the script below</p>
+
+<pre><code class="r">my_model &lt;- glm(Status.Indicator ~ Age + Gender + Income + Assigned_Fundraier + ..., 
+                data = df,
+                family = binomial(logit))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Model Prediction</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li></li>
+<li><h1>Logistic regression gives us the coefficients of all variables that are included in the model.</h1></li>
+</ul>
+
+<div style='float:left;width:48%;' class='centered'>
+  <pre><code class="r">my_model &lt;- glm(Status.Indicator ~ Age 
+                 + Gender 
+                 + Income
+                 + Assigned_Fundraiser 
+                 + Sign_Up_Amount 
+                 + Frequency 
+                 #+ First_Gift_Amount 
+                 #+ Last_Gift_Amount 
+                 #+ Saved 
+                 #+ Upgrade 
+                 #+ Total_Number_Of_Gifts
+                 + Total_Gift_Amount
+                 + Duration
+                 + DDD 
+                 + CCC 
+                 + Times 
+                 #+ DDDown
+                 , 
+                 data = df,
+                 family = binomial(logit)
+                )
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <pre><code>
+Call:
+glm(formula = Status.Indicator ~ Age + Gender + Income + Assigned_Fundraiser + 
+    Sign_Up_Amount + Frequency + Total_Gift_Amount + Duration + 
+    DDD + CCC + Times, family = binomial(logit), data = df)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-8.4904  -0.7957   0.2675   0.8649   3.6148  
+
+Coefficients:
+                                    Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)                        8.759e+00  9.054e-01   9.674  &lt; 2e-16 ***
+Age                                4.190e-03  1.287e-03   3.256  0.00113 ** 
+GenderMale                         1.143e-01  5.284e-02   2.163  0.03057 *  
+GenderUnknown                      3.150e-02  7.283e-02   0.433  0.66537    
+Income                            -4.999e-06  9.270e-07  -5.393 6.93e-08 ***
+Assigned_FundraiserCanvasser      -1.317e+00  8.828e-02 -14.921  &lt; 2e-16 ***
+Assigned_FundraiserFrontliner     -2.242e+00  2.355e-01  -9.519  &lt; 2e-16 ***
+Assigned_FundraiserSaver          -1.365e+00  1.091e-01 -12.511  &lt; 2e-16 ***
+Assigned_FundraiserTelefundraiser -7.964e-01  9.153e-02  -8.701  &lt; 2e-16 ***
+Assigned_FundraiserWEB            -9.677e-02  2.212e-01  -0.437  0.66175    
+Sign_Up_Amount                    -3.232e-02  2.020e-03 -16.001  &lt; 2e-16 ***
+FrequencyMONTHLY GIVING           -7.543e+00  8.682e-01  -8.688  &lt; 2e-16 ***
+Total_Gift_Amount                  3.642e-03  1.685e-04  21.616  &lt; 2e-16 ***
+Duration                           2.302e-01  7.908e-03  29.108  &lt; 2e-16 ***
+DDD1                              -1.081e+00  1.052e-01 -10.277  &lt; 2e-16 ***
+CCC1                              -2.144e-01  9.645e-02  -2.223  0.02621 *  
+Times                             -5.976e-01  8.347e-02  -7.159 8.13e-13 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 13916  on 10071  degrees of freedom
+Residual deviance: 10460  on 10055  degrees of freedom
+AIC: 10494
+
+Number of Fisher Scoring iterations: 6
+</code></pre>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>How to use the output of the model</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<ul>
+<li></li>
+<li><h1>On the paper</h1></li>
+</ul>
+
+<p>\[\pi = \frac{exp(\beta_0 + \beta_1V_1 + \beta_2V_2 + ...)}{1 + exp(\beta_0 + \beta_1V_1 + \beta_2V_2 + ...)}\]
+<br></p>
+
+<ul class = "build incremental">
+<li><h1>\(\beta_0, \beta_1, \beta_2, ...\) are the coefficients</h1></li>
+<li><h1>\(V_1, V_2, ...\) are the significant variables</h1></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>How to use the output of the model</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<ul>
+<li></li>
+<li><h1>Using R <code>predict()</code> function</h1></li>
+</ul>
+
+<pre><code class="r">prob &lt;- predict(my_model, df, type = &quot;response&quot;)
+</code></pre>
+
+<ul class = "build incremental">
+<li><h1>Data set <code>df</code> should contain the exact variables used in the model</h1></li>
+<li><h1>Please note:</h1>
+
+<ul class = "build incremental">
+<li>If we want to use <code>predict()</code> to calculate the probability of the response variable for a given dataset, <code>type=&quot;response&quot;</code> should be specified</li>
+<li>Otherwise, the result will be the some other value but still related to probability (log-odds)</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>How to use the output of the model</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li></li>
+<li><h1>Predict the probability of a person still with us after a certain amount of time</h1></li>
+</ul>
+
+<div style='float:left;width:48%;' class='centered'>
+  <pre><code class="r">df.test &lt;- data.frame(Age = 27, 
+                      Gender = as.factor(&quot;Female&quot;), 
+                      Income = 30800, 
+                      Assigned_Fundraiser = as.factor(&quot;Agency FR&quot;),
+                      Frequency = as.factor(&quot;MONTHLY GIVING&quot;), 
+                      Duration = c(1:24),
+                      Sign_Up_Amount = 10, 
+                      Total_Gift_Amount = 171,
+                      DDD = as.factor(0), 
+                      CCC = as.factor(0),
+                      Times=1)
+
+prob.test &lt;- predict(my_model, df.test, type = &quot;response&quot;)
+plot(prob.test, type = &quot;l&quot;, 
+     main = &quot;Probability of a person being active by months&quot;, 
+     ylab = &quot;Probability&quot;,
+     xlab = &quot;Month&quot;)
+</code></pre>
+
+</div>
+<div style='float:right;width:48%;'>
+  <p><img src="assets/fig/unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9"></p>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>How do we target people</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<ul>
+<li><h1>Apply the coefficients on current active members we can produce the probability of a person stays with us in the future.</h1></li>
+<li><h1>We pick out people with low probability.</h1></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Accuracy of Current Model</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><br></p>
+
+<ul>
+<li></li>
+<li><h1>Currently we can pick out 16.7% of our monthly cancellations</h1></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-18" style="background:;">
+  <hgroup>
+    <h2>Questions?</h2>
+  </hgroup>
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='NA'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='What is Churn Prediction'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='The purpose of Churner Prediction'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='The process of Churn Prediction'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='The variables we would like to look at'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Model Prediction'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Model Prediction'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Model Prediction'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Model Prediction'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Model Prediction'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Model Prediction'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Model Prediction'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='How to use the output of the model'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='How to use the output of the model'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='How to use the output of the model'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='How do we target people'>
+         16
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=17 title='Accuracy of Current Model'>
+         17
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=18 title='Questions?'>
+         18
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  <script src="libraries/widgets/interactive/js/ace/js/ace.js"></script>
+<script src="libraries/widgets/interactive/js/opencpu-0.5.js"></script>
+<script src="libraries/widgets/interactive/js/interactive.js"></script>
+
+  <script src="shared/shiny.js" type="text/javascript"></script>
+  <script src="shared/slider/js/jquery.slider.min.js"></script>
+  <script src="shared/bootstrap/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="shared/slider/css/jquery.slider.min.css"></link>
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+>>>>>>> origin/master
   </html>
