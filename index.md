@@ -1,7 +1,7 @@
 ---
 title: "Greenpeace Insight Skillshare"
 author: "Martin Hou"
-date: '22 November, 2016'
+date: '23 November, 2016'
 output:
   ioslides_presentation:
     <!--css: styles.css -->
@@ -63,7 +63,7 @@ code.vhdl{
 
 }
 
-pre code.1c {
+code.parser3 {
   font-size: 50%;
 
 }
@@ -158,13 +158,13 @@ pre code.1c {
 
 
 ```
-  Constituent_ID Age Gender Income Assigned_Fundraiser Sign_Up_Amount      Frequency Current_Status Status.Indicator First_Gift_Amount Last_Gift_Amount Saved Upgrade Total_Number_Of_Gifts Total_Gift_Amount DDD CCC Times DDDown
-1         108859  68 Female  45000      Telefundraiser             35 MONTHLY GIVING         Active                1                25               35     0       1                    61              1145   0   0     2      0
-2         121705  84 Female      0           Canvasser             25 MONTHLY GIVING     Terminated                0                25               25     0       0                     2                50   0   0     1      0
-3         123157  59   Male      0      Telefundraiser             30 MONTHLY GIVING     Terminated                0                30               30     0       0                   198              2745   0   0     2      0
-4          16717  83 Female  75000           Canvasser             25 MONTHLY GIVING         Active                1                 0                0     0       0                     0                 0   0   1     1      0
-5          17349   0 Female  80700      Telefundraiser             50 MONTHLY GIVING         Active                1                50               50     0       0                    22               950   0   0     2      0
-6          28989   0 Female  51700      Telefundraiser             26 MONTHLY GIVING         Active                1                26               26     0       0                    24               617   0   0     2      0
+  Constituent_ID Age Gender Income Assigned_Fundraiser Sign_Up_Amount      Frequency Current_Status Status.Indicator First_Gift_Amount Last_Gift_Amount Saved Duration Upgrade Total_Number_Of_Gifts Total_Gift_Amount DDD CCC Times DDDown
+1         108859  68 Female  45000      Telefundraiser             35 MONTHLY GIVING         Active                1                25               35     0       10       1                    61              1145   0   0     2      0
+2         121705  84 Female      0           Canvasser             25 MONTHLY GIVING     Terminated                0                25               25     0        1       0                     2                50   0   0     1      0
+3         123157  59   Male      0      Telefundraiser             30 MONTHLY GIVING     Terminated                0                30               30     0       10       0                   198              2745   0   0     2      0
+4          16717  83 Female  75000           Canvasser             25 MONTHLY GIVING         Active                1                 0                0     0       16       0                     0                 0   0   1     1      0
+5          17349   0 Female  80700      Telefundraiser             50 MONTHLY GIVING         Active                1                50               50     0       10       0                    22               950   0   0     2      0
+6          28989   0 Female  51700      Telefundraiser             26 MONTHLY GIVING         Active                1                26               26     0       11       0                    24               617   0   0     2      0
 ```
 
 
@@ -188,7 +188,7 @@ pre code.1c {
 
 - # Check correlation between variables 
 
-- # All numeric variables are checked here
+- # Some numeric variables are checked here
 
 
 ```r
@@ -209,6 +209,24 @@ Total_Number_Of_Gifts   0.06  0.09           0.03              0.11             
 Total_Gift_Amount       0.09  0.09           0.28              0.27             0.36                  0.79              1.00  0.45
 Times                  -0.01  0.11           0.07              0.03             0.05                  0.53              0.45  1.00
 ```
+
+<!--
+---
+
+## Model Prediction
+
+- # 
+
+- # A visualized way to see how some of the variables are correlated
+
+
+```r
+plot(df[, c("Sign_Up_Amount", "First_Gift_Amount", "Last_Gift_Amount", "Total_Number_Of_Gifts", "Total_Gift_Amount")])
+```
+
+![plot of chunk unnamed-chunk-3](assets/fig/unnamed-chunk-3-1.png)
+-->
+
 
 ---
 
@@ -288,6 +306,7 @@ my_model <- glm(Status.Indicator ~ Age
                  #+ Upgrade 
                  #+ Total_Number_Of_Gifts
                  + Total_Gift_Amount
+                 + Duration
                  + DDD 
                  + CCC 
                  + Times 
@@ -303,23 +322,45 @@ my_model <- glm(Status.Indicator ~ Age
 
 
 ```
-                                       Estimate   Std. Error     z value      Pr(>|z|)
-(Intercept)                        9.862375e+00 9.018823e-01  10.9353246  7.812586e-28
-Age                                3.673104e-03 1.209479e-03   3.0369299  2.390010e-03
-GenderMale                         1.213508e-01 4.998496e-02   2.4277466  1.519296e-02
-GenderUnknown                      7.400504e-02 6.818632e-02   1.0853355  2.777731e-01
-Income                            -2.359879e-06 8.718306e-07  -2.7068094  6.793326e-03
-Assigned_FundraiserCanvasser      -9.202429e-01 8.615350e-02 -10.6814343  1.243356e-26
-Assigned_FundraiserFrontliner     -1.485436e+00 2.075112e-01  -7.1583422  8.165852e-13
-Assigned_FundraiserSaver          -6.604016e-01 1.031417e-01  -6.4028564  1.524966e-10
-Assigned_FundraiserTelefundraiser -3.445890e-01 8.926591e-02  -3.8602532  1.132696e-04
-Assigned_FundraiserWEB             1.984448e-01 2.134383e-01   0.9297525  3.524992e-01
-Sign_Up_Amount                    -3.655851e-02 1.977466e-03 -18.4875512  2.601006e-76
-FrequencyMONTHLY GIVING           -8.114055e+00 8.641458e-01  -9.3896826  6.018135e-21
-Total_Gift_Amount                  5.324844e-03 1.612737e-04  33.0174261 4.567113e-239
-DDD1                              -7.822929e-01 9.595510e-02  -8.1526968  3.558972e-16
-CCC1                               1.702339e-01 8.804622e-02   1.9334610  5.317944e-02
-Times                             -9.527222e-01 8.066817e-02 -11.8103858  3.449746e-32
+
+Call:
+glm(formula = Status.Indicator ~ Age + Gender + Income + Assigned_Fundraiser + 
+    Sign_Up_Amount + Frequency + Total_Gift_Amount + Duration + 
+    DDD + CCC + Times, family = binomial(logit), data = df)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-8.4904  -0.7957   0.2675   0.8649   3.6148  
+
+Coefficients:
+                                    Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                        8.759e+00  9.054e-01   9.674  < 2e-16 ***
+Age                                4.190e-03  1.287e-03   3.256  0.00113 ** 
+GenderMale                         1.143e-01  5.284e-02   2.163  0.03057 *  
+GenderUnknown                      3.150e-02  7.283e-02   0.433  0.66537    
+Income                            -4.999e-06  9.270e-07  -5.393 6.93e-08 ***
+Assigned_FundraiserCanvasser      -1.317e+00  8.828e-02 -14.921  < 2e-16 ***
+Assigned_FundraiserFrontliner     -2.242e+00  2.355e-01  -9.519  < 2e-16 ***
+Assigned_FundraiserSaver          -1.365e+00  1.091e-01 -12.511  < 2e-16 ***
+Assigned_FundraiserTelefundraiser -7.964e-01  9.153e-02  -8.701  < 2e-16 ***
+Assigned_FundraiserWEB            -9.677e-02  2.212e-01  -0.437  0.66175    
+Sign_Up_Amount                    -3.232e-02  2.020e-03 -16.001  < 2e-16 ***
+FrequencyMONTHLY GIVING           -7.543e+00  8.682e-01  -8.688  < 2e-16 ***
+Total_Gift_Amount                  3.642e-03  1.685e-04  21.616  < 2e-16 ***
+Duration                           2.302e-01  7.908e-03  29.108  < 2e-16 ***
+DDD1                              -1.081e+00  1.052e-01 -10.277  < 2e-16 ***
+CCC1                              -2.144e-01  9.645e-02  -2.223  0.02621 *  
+Times                             -5.976e-01  8.347e-02  -7.159 8.13e-13 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 13916  on 10071  degrees of freedom
+Residual deviance: 10460  on 10055  degrees of freedom
+AIC: 10494
+
+Number of Fisher Scoring iterations: 6
 ```
 
 ---
@@ -354,6 +395,44 @@ prob <- predict(my_model, df, type = "response")
 >  - # Please note:
        > - If we want to use `predict()` to calculate the probability of the response variable for a given dataset, `type="response"` should be specified
        > - Otherwise, the result will be the some other value but still related to probability (log-odds)
+
+--- &twocol
+
+## How to use the output of the model
+
+- # 
+
+- # Predict the probability of a person still with us after a certain amount of time
+
+*** =left
+
+
+```r
+df.test <- data.frame(Age = 27, 
+                      Gender = as.factor("Female"), 
+                      Income = 30800, 
+                      Assigned_Fundraiser = as.factor("Agency FR"),
+                      Frequency = as.factor("MONTHLY GIVING"), 
+                      Duration = c(1:24),
+                      Sign_Up_Amount = 10, 
+                      Total_Gift_Amount = 171,
+                      DDD = as.factor(0), 
+                      CCC = as.factor(0),
+                      Times=1)
+
+prob.test <- predict(my_model, df.test, type = "response")
+plot(prob.test, type = "l", 
+     main = "Probability of a person being active by months", 
+     ylab = "Probability",
+     xlab = "Month")
+```
+
+
+*** =right
+
+![plot of chunk unnamed-chunk-9](assets/fig/unnamed-chunk-9-1.png)
+
+
 
 ---
 
